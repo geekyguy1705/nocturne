@@ -1,0 +1,59 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import ProjectCard from "@/components/ProjectCard.astro"
+import MDXContent from "@/components/MDXContent.astro"
+import { Badge } from "@workspace/ui/components/badge"
+import { siteConfig } from "@/site.config"
+import { getCollection, render } from "astro:content"
+import type { CollectionEntry } from "astro:content"
+
+const projects: CollectionEntry<"projects">[] = (await getCollection("projects")).sort(
+  (a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) =>
+    (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)
+)
+
+const projectRenders = await Promise.all(
+  projects.map(async (project: CollectionEntry<"projects">) => {
+    const { Content } = await render(project)
+    return { project, Content }
+  })
+)
+---
+
+<Layout title="Portfolio" description="Selected projects and case studies.">
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <h1 class="mb-4 text-3xl font-semibold tracking-tight">Portfolio</h1>
+    <p class="mb-8 text-muted-foreground">Selected projects and case studies.</p>
+
+    {
+      !siteConfig.portfolio.enabled ? (
+        <div class="rounded-lg border border-border p-8 text-center">
+          <p class="text-muted-foreground">Portfolio is currently disabled.</p>
+        </div>
+      ) : siteConfig.portfolio.mode === "single-page" ? (
+        <div class="flex flex-col gap-12">
+          {projectRenders.map(({ project, Content }) => (
+            <article class="markdown">
+              <h2>{project.data.title}</h2>
+              <p class="text-muted-foreground">{project.data.description}</p>
+              <div class="mb-4 flex flex-wrap gap-2">
+                {project.data.tech.map((t: string) => (
+                  <Badge variant="secondary">{t}</Badge>
+                ))}
+              </div>
+              <MDXContent>
+                <Content />
+              </MDXContent>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project: CollectionEntry<"projects">) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Layout>

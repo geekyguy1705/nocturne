@@ -1,0 +1,70 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import ArticleCard from "@/components/ArticleCard.astro"
+import ProjectCard from "@/components/ProjectCard.astro"
+import { Button } from "@workspace/ui/components/button"
+import { siteConfig } from "@/site.config"
+import { getCollection } from "astro:content"
+import type { CollectionEntry } from "astro:content"
+
+const articles: CollectionEntry<"articles">[] = (await getCollection("articles"))
+  .filter((a: CollectionEntry<"articles">) => !a.data.draft)
+  .sort((a: CollectionEntry<"articles">, b: CollectionEntry<"articles">) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  .slice(0, 3)
+
+const projects: CollectionEntry<"projects">[] = (await getCollection("projects"))
+  .sort((a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0))
+  .slice(0, 3)
+---
+
+<Layout title="Home" description={siteConfig.description}>
+  <section class="mx-auto max-w-6xl px-4 py-20 md:py-28">
+    <div class="flex max-w-2xl flex-col gap-5">
+      <span class="text-sm font-semibold tracking-wide" style="color: var(--primary)">Software Engineer</span>
+      <h1 class="text-4xl font-semibold tracking-tight md:text-5xl">
+        {siteConfig.title}
+      </h1>
+      <p class="text-lg text-muted-foreground leading-relaxed">
+        {siteConfig.description}
+      </p>
+      <div class="flex flex-wrap gap-3 pt-1">
+        <Button asChild>
+          <a href="/blog">Read the blog</a>
+        </Button>
+        <Button variant="outline" asChild>
+          <a href="/profile">View profile</a>
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16">
+    <div class="mb-6 flex items-center justify-between border-b border-border pb-4">
+      <h2 class="text-xl font-semibold tracking-tight">Latest articles</h2>
+      <Button variant="ghost" size="sm" asChild>
+        <a href="/blog">View all</a>
+      </Button>
+    </div>
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {articles.map((article: CollectionEntry<"articles">) => <ArticleCard article={article} />)}
+    </div>
+  </section>
+
+  {
+    siteConfig.portfolio.enabled && (
+      <section class="border-t border-border bg-[var(--surface-raised)] py-16">
+        <div class="mx-auto max-w-6xl px-4">
+          <div class="mb-6 flex items-center justify-between border-b border-border pb-4">
+            <h2 class="text-xl font-semibold tracking-tight">Featured projects</h2>
+            <Button variant="ghost" size="sm" asChild>
+              <a href="/portfolio">View all</a>
+            </Button>
+          </div>
+          <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3" style="--card: var(--background); --card-foreground: var(--foreground);">
+            {projects.map((project: CollectionEntry<"projects">) => <ProjectCard project={project} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Layout>
