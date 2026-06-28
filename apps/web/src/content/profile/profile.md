@@ -1,7 +1,7 @@
 ---
-name: "Abhishek"
-role: "Frontend Engineer & Design Systems Nerd"
-bio: "I craft dark-mode-first web experiences with obsessive attention to typography, motion, and colour."
+name: "Nocturne"
+role: "A Site created with Astro and Tailwind CSS"
+bio: "A dark-mode-first web experience with obsessive attention to typography, motion, and colour."
 avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
 social:
   - name: "GitHub"
@@ -25,17 +25,11 @@ skills:
 resumeLink: "#"
 ---
 
-## About me
+## About this page
 
-I am a frontend engineer who cares deeply about the intersection of design and engineering. I built Nocturne as a personal playground for ideas around theming, motion, and typographic detail — and it grew into a template worth sharing.
+This is a demo site for showcasing a portfolio template built with Astro and Tailwind CSS.
 
-## What I work on
 
-- **Design systems** — CSS custom properties, OKLCH colour spaces, Tailwind v4 tokens
-- **Motion** — SVG stroke animations, spring physics, scroll-triggered choreography
-- **Typography** — Variable fonts, opentype.js path extraction, readable markdown layouts
-- **Performance** — Static-first Astro builds, zero JS where possible, pagefind search
+## About Nocturne
 
-## Get in touch
-
-Always happy to talk design systems, animation, or Astro. Reach me through any of the social links above.
+This is a dark-first personal site template — animated SVG headings, 15 themes, content collections, and full-text search.
