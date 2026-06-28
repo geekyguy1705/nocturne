@@ -42,6 +42,7 @@ html[data-site-theme="nord-dark"] {
   --accent-3: #a3be8c;
   --surface-raised: #3b4252;
   --card-border-accent: #b48ead;
+  --highlight: #88c0d0;
   --radius: 0.45rem;
 }
 
@@ -87,5 +88,6 @@ html[data-site-theme="nord-light"] {
   --accent-3: #a3be8c;
   --surface-raised: #e5e9f0;
   --card-border-accent: #b48ead;
+  --highlight: #88c0d0;
   --radius: 0.45rem;
 }

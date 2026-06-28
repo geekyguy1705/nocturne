@@ -1,8 +1,8 @@
 ---
 name: "Abhishek"
-role: "Full-stack Developer & Designer"
-bio: "I build fast, accessible, and beautiful web experiences."
-avatar: "/avatar.svg"
+role: "Frontend Engineer & Design Systems Nerd"
+bio: "I craft dark-mode-first web experiences with obsessive attention to typography, motion, and colour."
+avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
 social:
   - name: "GitHub"
     url: "https://github.com"
@@ -14,10 +14,12 @@ social:
     url: "https://twitter.com"
     icon: "twitter"
 skills:
+  - "Astro"
   - "React"
   - "TypeScript"
-  - "Astro"
   - "Tailwind CSS"
+  - "Anime.js"
+  - "Design Systems"
   - "Node.js"
   - "PostgreSQL"
 resumeLink: "#"
@@ -25,15 +27,15 @@ resumeLink: "#"
 
 ## About me
 
-I am a full-stack developer with a passion for design systems, static-site generators, and polished user interfaces. I like shipping sites that feel fast, read well, and scale without pain.
+I am a frontend engineer who cares deeply about the intersection of design and engineering. I built Nocturne as a personal playground for ideas around theming, motion, and typographic detail — and it grew into a template worth sharing.
 
-## What I do
+## What I work on
 
-- **Frontend:** React, Astro, Tailwind CSS, shadcn/ui
-- **Backend:** Node.js, TypeScript, PostgreSQL, REST & GraphQL APIs
-- **Design:** Figma, design tokens, accessible color systems
-- **Writing:** Technical articles, project case studies, and workflow deep-dives
+- **Design systems** — CSS custom properties, OKLCH colour spaces, Tailwind v4 tokens
+- **Motion** — SVG stroke animations, spring physics, scroll-triggered choreography
+- **Typography** — Variable fonts, opentype.js path extraction, readable markdown layouts
+- **Performance** — Static-first Astro builds, zero JS where possible, pagefind search
 
 ## Get in touch
 
-Open to freelance, collaborations, and interesting product ideas. Reach me through any of the social links above.
+Always happy to talk design systems, animation, or Astro. Reach me through any of the social links above.

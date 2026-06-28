@@ -108,6 +108,8 @@
 
     --color-card-border-accent: var(--card-border-accent);
 
+    --color-highlight: var(--highlight);
+
     --radius-sm: calc(var(--radius) * 0.6);
 
     --radius-md: calc(var(--radius) * 0.8);

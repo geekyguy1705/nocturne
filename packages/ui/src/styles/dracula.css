@@ -42,5 +42,6 @@ html[data-site-theme="dracula"] {
   --accent-3: #50fa7b;
   --surface-raised: #44475a;
   --card-border-accent: #ff79c6;
+  --highlight: #ff79c6;
   --radius: 0.45rem;
 }

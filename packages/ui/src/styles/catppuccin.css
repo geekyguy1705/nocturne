@@ -42,6 +42,7 @@
   --accent-3: #40a02b;
   --surface-raised: #dce0e8;
   --card-border-accent: #ea76cb;
+  --highlight: #d20f39;
   --radius: 0.45rem;
 }
 
@@ -87,6 +88,7 @@ html[data-site-theme="frappe"] {
   --accent-3: #a6d189;
   --surface-raised: #232634;
   --card-border-accent: #f4b8e4;
+  --highlight: #e78284;
   --radius: 0.45rem;
 }
 
@@ -132,6 +134,7 @@ html[data-site-theme="macchiato"] {
   --accent-3: #a6da95;
   --surface-raised: #181926;
   --card-border-accent: #f5bde6;
+  --highlight: #ed8796;
   --radius: 0.45rem;
 }
 
@@ -177,5 +180,6 @@ html[data-site-theme="mocha"] {
   --accent-3: #a6e3a1;
   --surface-raised: #11111b;
   --card-border-accent: #f5c2e7;
+  --highlight: #f5c2e7;
   --radius: 0.45rem;
 }

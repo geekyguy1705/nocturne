@@ -6,6 +6,9 @@ import { Badge } from "@workspace/ui/components/badge"
 import { siteConfig } from "@/site.config"
 import { getCollection, render } from "astro:content"
 import type { CollectionEntry } from "astro:content"
+import svgPaths from "@/generated/svg-paths.json"
+
+const portfolioPaths = svgPaths.find((h) => h.key === "portfolio")!
 
 const projects: CollectionEntry<"projects">[] = (await getCollection("projects")).sort(
   (a: CollectionEntry<"projects">, b: CollectionEntry<"projects">) =>
@@ -22,8 +25,25 @@ const projectRenders = await Promise.all(
 
 <Layout title="Portfolio" description="Selected projects and case studies.">
   <section class="mx-auto max-w-6xl px-4 py-12">
-    <h1 class="mb-4 text-3xl font-semibold tracking-tight">Portfolio</h1>
-    <p class="mb-8 text-muted-foreground">Selected projects and case studies.</p>
+    <div data-animate="page-heading" class="mb-4" role="heading" aria-level="1">
+      <svg
+        viewBox={`0 0 ${Math.ceil(portfolioPaths.totalWidth + 6)} ${portfolioPaths.height + 6}`}
+        width="100%"
+        height="auto"
+        style={`max-width: ${Math.ceil(portfolioPaths.totalWidth + 6)}px; display: block; overflow: visible;`}
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="Portfolio"
+        role="img"
+      >
+        <g transform="translate(3, 3)" opacity="0.45" fill="none" stroke="var(--highlight)" stroke-width="1" stroke-linejoin="round">
+          {portfolioPaths.glyphs.map((g) => <path d={g.d} />)}
+        </g>
+        <g transform="translate(3, 3)" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linejoin="round" class="draw-paths">
+          {portfolioPaths.glyphs.map((g) => <path d={g.d} class="draw-path" />)}
+        </g>
+      </svg>
+    </div>
+    <p data-animate="section-heading" class="mb-8 text-muted-foreground">Selected projects and case studies.</p>
 
     {
       !siteConfig.portfolio.enabled ? (
@@ -50,7 +70,7 @@ const projectRenders = await Promise.all(
       ) : (
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((project: CollectionEntry<"projects">) => (
-            <ProjectCard project={project} />
+            <div data-animate="card"><ProjectCard project={project} /></div>
           ))}
         </div>
       )

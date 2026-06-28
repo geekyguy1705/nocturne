@@ -1,10 +1,10 @@
 export const siteConfig = {
-  title: "Abhishek",
-  description: "A personal blog and portfolio site built with Astro, Markdown, and shadcn/ui.",
-  url: "https://example.com",
+  title: "Nocturne",
+  description: "A dark-first personal site template — animated SVG headings, 15 themes, content collections, and full-text search.",
+  url: "https://nocturne.dev",
   author: {
     name: "Abhishek",
-    email: "hello@example.com",
+    email: "hello@nocturne.dev",
   },
   nav: [
     { label: "Home", href: "/" },

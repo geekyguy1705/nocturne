@@ -1,29 +1,36 @@
 # build output
 dist/
 
-# generated types
+# generated types (astro sync)
 .astro/
 
 # dependencies
 node_modules/
 
+# generated build artifacts
+apps/web/src/generated/svg-paths.json
+
 # logs
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
 # environment variables
-.env*
+.env
+.env.*
+!.env.example
 
-# turbo
-.turbo
+# turbo cache
+.turbo/
 
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/
-
-# typescript
+# typescript incremental build info
 *.tsbuildinfo
+
+# editor related folders
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.windsurf/plans/
+.idea/

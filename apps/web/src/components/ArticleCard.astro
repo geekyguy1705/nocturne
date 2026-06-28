@@ -34,7 +34,7 @@ const extraCount = tags.length - MAX_TAGS
   <CardFooter className="flex flex-nowrap items-center gap-1.5 overflow-hidden">
     {visibleTags.map((tag: string) => (
       <a href={`/blog/tag/${slugify(tag)}`} class="inline-flex shrink-0">
-        <Badge variant="secondary" className="hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer text-xs">
+        <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer text-xs">
           {tag}
         </Badge>
       </a>

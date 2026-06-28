@@ -42,6 +42,7 @@ html[data-site-theme="rosepine-main"] {
   --accent-3: #f6c177;
   --surface-raised: #1f1d2e;
   --card-border-accent: #c4a7e7;
+  --highlight: #eb6f92;
   --radius: 0.45rem;
 }
 
@@ -87,6 +88,7 @@ html[data-site-theme="rosepine-moon"] {
   --accent-3: #f6c177;
   --surface-raised: #2a273f;
   --card-border-accent: #c4a7e7;
+  --highlight: #eb6f92;
   --radius: 0.45rem;
 }
 
@@ -132,5 +134,6 @@ html[data-site-theme="rosepine-dawn"] {
   --accent-3: #ea9d34;
   --surface-raised: #fffaf3;
   --card-border-accent: #907aa9;
+  --highlight: #b4637a;
   --radius: 0.45rem;
 }

@@ -26,13 +26,17 @@ export function FloatingPanel({
   const panelRef = React.useRef<HTMLDivElement>(null)
   const [coords, setCoords] = React.useState({ top: 0, left: 0, right: 0 })
   const [mounted, setMounted] = React.useState(false)
+  const [ready, setReady] = React.useState(false)
 
   React.useEffect(() => {
     setMounted(true)
   }, [])
 
   React.useEffect(() => {
-    if (!open || !triggerRef.current) return
+    if (!open || !triggerRef.current) {
+      setReady(false)
+      return
+    }
 
     const updatePosition = () => {
       const rect = triggerRef.current!.getBoundingClientRect()
@@ -41,6 +45,7 @@ export function FloatingPanel({
         left: rect.left,
         right: window.innerWidth - rect.right,
       })
+      setReady(true)
     }
 
     updatePosition()
@@ -75,7 +80,7 @@ export function FloatingPanel({
     }
   }, [open, onClose, triggerRef])
 
-  if (!mounted || !open) return null
+  if (!mounted || !open || !ready) return null
 
   const style: React.CSSProperties =
     align === "end"

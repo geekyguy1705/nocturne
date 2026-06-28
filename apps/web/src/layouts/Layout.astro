@@ -36,7 +36,7 @@ const pageTitle = `${title} | Abhishek`
       const applyTheme = (doc = document) => {
         const stored = localStorage.getItem("theme")
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-        const theme = ALL_THEMES.includes(stored) ? stored : (prefersDark ? "mocha" : "latte")
+        const theme = ALL_THEMES.includes(stored) ? stored : (prefersDark ? "tokyonight-night" : "latte")
         const isDark = !LIGHT_THEMES.has(theme)
         const root = doc.documentElement
         root.setAttribute("data-site-theme", theme)

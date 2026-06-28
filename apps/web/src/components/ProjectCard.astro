@@ -23,7 +23,7 @@ const extraCount = tech.length - MAX_TECH
       </a>
     </CardTitle>
     <CardDescription className="flex items-center gap-1.5 text-xs">
-      {featured && <span class="font-medium text-primary">Featured</span>}
+      {featured && <span class="font-medium text-highlight">Featured</span>}
       {featured && date && <span aria-hidden="true">·</span>}
       {date && <span>{new Date(date).getFullYear()}</span>}
     </CardDescription>

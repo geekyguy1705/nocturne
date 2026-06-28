@@ -42,6 +42,7 @@ html[data-site-theme="tokyonight-night"] {
   --accent-3: #9ece6a;
   --surface-raised: #292e42;
   --card-border-accent: #73daca;
+  --highlight: #7aa2f7;
   --radius: 0.45rem;
 }
 
@@ -87,6 +88,7 @@ html[data-site-theme="tokyonight-storm"] {
   --accent-3: #9ece6a;
   --surface-raised: #292e42;
   --card-border-accent: #73daca;
+  --highlight: #7aa2f7;
   --radius: 0.45rem;
 }
 
@@ -132,5 +134,6 @@ html[data-site-theme="tokyonight-moon"] {
   --accent-3: #c3e88d;
   --surface-raised: #2f334d;
   --card-border-accent: #4fd6be;
+  --highlight: #82aaff;
   --radius: 0.45rem;
 }

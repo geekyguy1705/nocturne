@@ -88,7 +88,7 @@ function ThemeIcon({ primary, secondary }: { primary: string; secondary: string 
   )
 }
 
-const DEFAULT_THEME: ThemeId = "latte"
+const DEFAULT_THEME: ThemeId = "tokyonight-night"
 
 export function ThemePicker() {
   const [open, setOpen] = React.useState(false)

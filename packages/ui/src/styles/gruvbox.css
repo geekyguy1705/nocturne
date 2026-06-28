@@ -42,6 +42,7 @@ html[data-site-theme="gruvbox-dark"] {
   --accent-3: #b8bb26;
   --surface-raised: #3c3836;
   --card-border-accent: #8ec07c;
+  --highlight: #8ec07c;
   --radius: 0.45rem;
 }
 
@@ -87,5 +88,6 @@ html[data-site-theme="gruvbox-light"] {
   --accent-3: #79740e;
   --surface-raised: #ebdbb2;
   --card-border-accent: #427b58;
+  --highlight: #98971a;
   --radius: 0.45rem;
 }
