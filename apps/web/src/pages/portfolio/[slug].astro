@@ -4,6 +4,7 @@ import MDXContent from "@/components/MDXContent.astro"
 import { Badge } from "@workspace/ui/components/badge"
 import { Button } from "@workspace/ui/components/button"
 import { ExternalLink } from "lucide-react"
+import { slugify } from "@/lib/utils"
 import { siteConfig } from "@/site.config"
 import { getCollection, render } from "astro:content"
 import type { CollectionEntry } from "astro:content"
@@ -38,7 +39,13 @@ const { title, description, tech, link, date, featured } = project.data
       <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">{title}</h1>
       <p class="text-lg text-muted-foreground">{description}</p>
       <div class="flex flex-wrap gap-2">
-        {tech.map((t: string) => <Badge variant="secondary">{t}</Badge>)}
+        {tech.map((t: string) => (
+          <a href={`/portfolio/tag/${slugify(t)}`}>
+            <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer">
+              {t}
+            </Badge>
+          </a>
+        ))}
       </div>
       {
         link && (

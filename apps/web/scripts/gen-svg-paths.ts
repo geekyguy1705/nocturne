@@ -40,6 +40,15 @@ function findFontFile(): string {
 
 const FONT_PATH = findFontFile()
 
+// ── Slugify (matches src/lib/utils.ts) ──────────────────────────────────────
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+}
+
 // ── Heading definitions ────────────────────────────────────────────────────
 // Collect all tag values from content directory
 const CONTENT_DIR = path.join(__dirname, "../src/content/articles")
@@ -50,6 +59,20 @@ for (const file of fs.readdirSync(CONTENT_DIR)) {
   const m = raw.match(/^tags:\s*\[([^\]]+)\]/m)
   if (m) {
     m[1].split(",").forEach((t) => tags.add(t.trim().replace(/['"]/g, "")))
+  }
+}
+
+// Collect all tech values from projects directory
+const PROJECTS_DIR = path.join(__dirname, "../src/content/projects")
+const techTags = new Set<string>()
+if (fs.existsSync(PROJECTS_DIR)) {
+  for (const file of fs.readdirSync(PROJECTS_DIR)) {
+    if (!file.endsWith(".md") && !file.endsWith(".mdx")) continue
+    const raw = fs.readFileSync(path.join(PROJECTS_DIR, file), "utf-8")
+    const m = raw.match(/^tech:\s*\[([^\]]+)\]/m)
+    if (m) {
+      m[1].split(",").forEach((t) => techTags.add(t.trim().replace(/['"]/g, "")))
+    }
   }
 }
 
@@ -75,6 +98,11 @@ const headings: HeadingDef[] = [
   ...Array.from(tags).map((tag) => ({
     key:      `tag:${tag}`,
     text:     `Tag: ${tag}`,
+    fontSize: 44,
+  })),
+  ...Array.from(techTags).map((tag) => ({
+    key:      `project-tag:${slugify(tag)}`,
+    text:     `Tech: ${tag}`,
     fontSize: 44,
   })),
 ]

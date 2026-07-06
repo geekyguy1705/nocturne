@@ -1,6 +1,7 @@
 ---
 import { Badge } from "@workspace/ui/components/badge"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "@workspace/ui/components/card"
+import { slugify } from "@/lib/utils"
 import type { CollectionEntry } from "astro:content"
 
 interface Props {
@@ -9,13 +10,9 @@ interface Props {
 
 const { project } = Astro.props
 const { title, description, tech, featured, date } = project.data
-
-const MAX_TECH = 4
-const visibleTech = tech.slice(0, MAX_TECH)
-const extraCount = tech.length - MAX_TECH
 ---
 
-<Card className="flex h-full flex-col">
+<Card className="flex h-full min-w-0 flex-col">
   <CardHeader className="pb-3">
     <CardTitle className="text-base leading-snug">
       <a href={`/portfolio/${project.id}`} class="hover:text-primary transition-colors">
@@ -31,16 +28,13 @@ const extraCount = tech.length - MAX_TECH
   <CardContent className="flex-1 pb-3">
     <p class="text-sm text-muted-foreground line-clamp-3">{description}</p>
   </CardContent>
-  <CardFooter className="flex flex-nowrap items-center gap-1.5 overflow-hidden">
-    {visibleTech.map((t: string) => (
-      <Badge variant="secondary" className="shrink-0 text-xs">
-        {t}
-      </Badge>
+  <CardFooter className="flex flex-wrap items-center gap-1.5">
+    {tech.map((t: string) => (
+      <a href={`/portfolio/tag/${slugify(t)}`} class="inline-flex">
+        <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer text-xs">
+          {t}
+        </Badge>
+      </a>
     ))}
-    {extraCount > 0 && (
-      <Badge variant="outline" className="shrink-0 text-xs text-muted-foreground">
-        +{extraCount}
-      </Badge>
-    )}
   </CardFooter>
 </Card>
