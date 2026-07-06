@@ -1,9 +1,9 @@
 ---
 title: "Nocturne"
-description: "A dark-first personal site template built with Astro, Tailwind v4, and Anime.js — featuring animated SVG headings, 15 themes, and full-text search."
+description: "Abhishek's personal portfolio site built with Astro, Tailwind v4, and Anime.js — featuring animated SVG headings, 15 themes, and full-text search."
 tech: ["Astro", "TypeScript", "Tailwind CSS v4", "Anime.js", "opentype.js", "shadcn/ui"]
 date: 2026-06-28
-link: "https://nocturne.dev"
+link: "https://nocturne-rho-three.vercel.app/"
 featured: true
 coverImage: "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=800&q=80"
 ---
