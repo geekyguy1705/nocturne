@@ -6,6 +6,7 @@ tags: ["Beginner", "DevOps", "Kubernetes", "Cloud"]
 draft: false
 coverImage: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&q=80"
 author: "Abhishek Laha"
+readingTime: "3 min"
 ---
 
 Kubernetes (often referred to as K8s) has become a staple go-to option for container orchestration. It helps you automate the deployment, scaling, and management of containerized applications.

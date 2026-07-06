@@ -6,6 +6,7 @@ tags: ["DevOps", "Beginner", "Cloud", "CICD", "DevOps Engineer"]
 draft: false
 coverImage: "https://images.unsplash.com/photo-1518432031352-d6fc5734c3df?w=800&q=80"
 author: "Abhishek Laha"
+readingTime: "4 min"
 ---
 
 Hi, there. If you are reading this article, this means you are keen to get started with DevOps. Without wasting time, lets get into the specifics.

@@ -1,7 +1,7 @@
 ---
 name: "Abhishek Laha"
-role: "Senior Cloud Engineer"
-bio: "Senior Cloud Engineer and a Tech Enthusiast!"
+role: "Senior DevOps & Platform Engineer"
+bio: "DevOps & Platform Engineer with 5+ years building cloud-native platforms on Azure & GCP. CKAD certified."
 avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
 social:
   - name: "GitHub"
@@ -15,55 +15,41 @@ social:
     icon: "dev"
 skills:
   - "Kubernetes"
-  - "Azure"
   - "Terraform"
-  - "Helm"
+  - "Azure"
+  - "GCP"
   - "Docker"
+  - "Helm"
   - "CI/CD"
-  - "Golang"
+  - "GitHub Actions"
+  - "Azure DevOps"
+  - "Prometheus"
+  - "Grafana"
+  - "Loki"
+  - "ELK Stack"
+  - "DevSecOps"
+  - "Bash"
+  - "Python"
+  - "Platform Engineering"
   - "GitOps"
-resumeLink: "#"
+resumeLink: "https://drive.google.com/file/d/13620Hb1HT7JioC47J2LC88KJUJtTiAEA/view?usp=sharing"
 ---
 
-# 👋 Hey there, I'm Abhishek!
+## Hey, I'm Abhishek
 
-Welcome to my corner of the internet. I'm a curious mind passionate about **DevOps**, **cloud technologies**, and building scalable systems that make a difference.
+I'm a DevOps and platform engineer who enjoys making infrastructure feel a little less chaotic and a lot more dependable. I like building cloud-native systems that help teams move faster without losing sleep over deployments, scaling, or the occasional mysterious alert.
 
-## 👨‍💻 What I Do
+## What I'm about
 
-I'm currently working as a **Senior Cloud Engineer** with a focus on:
+- Creating Kubernetes and cloud platforms that are practical, reliable, and easy for teams to use.
+- Automating the repetitive bits so people can spend more time solving interesting problems.
+- Improving observability, CI/CD, and developer experience one small upgrade at a time.
+- Learning in public, sharing what I figure out, and staying curious about where cloud-native tech is heading next.
 
-- 🚀 Kubernetes & container orchestration
-- ☁️ Azure Cloud infrastructure
-- 🔄 CI/CD pipelines & GitOps
-- 🧩 Infrastructure as Code (Terraform, Helm)
-- 🛠️ Automation & performance tuning
+## Outside the terminal
 
-## 🎯 Goals for 2025
+Away from dashboards and YAML, you'll usually find me playing cricket, jumping into PC games, listening to music or podcasts, or planning a short adventure to reset the brain. I also enjoy geeking out over new tools, thoughtful product ideas, and the tiny details that make technology feel delightful.
 
-- Become a certified **Azure Solutions Architect**
-- Emplore **Golang** in depth
-- Achieve **Kubestronaut** status (all K8s certs!)
-- Contribute to open-source DevOps tooling
+## Let's build something
 
-## 🧠 Learning Mindset
-
-I believe in continuous learning and enjoy solving problems that stretch my comfort zone. Whether it's deploying an application with complex requirements or doing RnD for a monitoring tool — I'm in!
-
-## ☕ Outside of Work
-
-When I'm not diving into cloud tech, you'll find me:
-- 🏏 Playing Cricket
-- 🎧 Vibing to music or podcasts
-- 🏏 Playing PC games
-- 🗺️ Planning my next short adventure
-- 📱 Geeking out about technology
-
-## 📫 Let's Connect!
-
-I'm always open to new ideas, collaborations, and meaningful conversations.  
-Feel free to connect via [LinkedIn](https://www.linkedin.com/in/abhishek-laha/) or drop a message on [GitHub](https://github.com/geekyguy1705).
-
----
-
-_Thanks for stopping by!_
+I'm always happy to connect with people working on cloud-native platforms, DevOps tooling, open-source ideas, technical writing, or anything that makes engineering teams' lives easier. If you want to collaborate, swap ideas, or just have a good conversation about tech, feel free to reach out.

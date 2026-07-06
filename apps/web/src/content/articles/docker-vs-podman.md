@@ -6,6 +6,7 @@ tags: ["Containers", "Docker", "Podman"]
 draft: false
 coverImage: "https://images.unsplash.com/photo-1605745341112-85968b19335b?w=800&q=80"
 author: "Abhishek Laha"
+readingTime: "5 min"
 ---
 
 Since its beginning, container orchestration has come a long way. Organizing containerized workloads in the fast-paced development environment of today requires striking a balance between security, flexibility, and performance in addition to automation. In this article, we'll be comparing the newest features of Docker and Podman and look at how they have adjusted to the shifting DevOps landscape in 2025 as we delve into the ongoing development of container orchestration tools.

@@ -6,6 +6,7 @@ tags: ["Google", "AI", "Google IO", "Cloud"]
 draft: false
 coverImage: "https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=800&q=80"
 author: "Abhishek Laha"
+readingTime: "5 min"
 ---
 
 Google I/O was a landmark event for developers, with the company doubling down on its vision on AI-first software development. This year's announcements were lazer-focussed on empowering builders with new AI models, APIs and tools especially through **Gemini** platform. Here's a deep dive into the developer-centric innovations unveiled at unveiled at Google I/O 2025.

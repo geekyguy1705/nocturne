@@ -6,6 +6,7 @@ tags: ["Beginner", "DevOps", "Kubernetes", "Pods", "Deployments", "Services"]
 draft: false
 coverImage: "https://images.unsplash.com/photo-1639322537228-f710d846310a?w=800&q=80"
 author: "Abhishek Laha"
+readingTime: "6 min"
 ---
 
 Kubernetes can feel like a complex ecosystem, but once you understand its building blocks, everything starts to make sense. In this article, we'll explore the three most fundamental components in Kubernetes: Pods, Deployments, and Services.

@@ -6,6 +6,7 @@ tags: ["Beginner", "DevOps", "Kubernetes", "Ingress", "Best Practices"]
 draft: false
 coverImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80"
 author: "Abhishek Laha"
+readingTime: "6 min"
 ---
 
 As you start exposing your services in Kubernetes beyond the cluster, Ingress becomes a powerful resource to manage external access. In this article, we'll break down the Ingress Controller, how it works, how to set it up, and what to avoid while working with it.
