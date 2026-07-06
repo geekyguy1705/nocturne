@@ -1,0 +1,71 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import ProjectCard from "@/components/ProjectCard.astro"
+import { Badge } from "@workspace/ui/components/badge"
+import svgPaths from "@/generated/svg-paths.json"
+import { getCollection } from "astro:content"
+import { slugify } from "@/lib/utils"
+import { siteConfig } from "@/site.config"
+import type { CollectionEntry } from "astro:content"
+
+export async function getStaticPaths() {
+  if (!siteConfig.portfolio.enabled || siteConfig.portfolio.mode === "single-page") {
+    return []
+  }
+  const projects = await getCollection("projects")
+  const tagSet = new Set<string>()
+  for (const project of projects) {
+    for (const t of project.data.tech) {
+      tagSet.add(t)
+    }
+  }
+  return Array.from(tagSet).map((tag) => ({
+    params: { tag: slugify(tag) },
+    props: {
+      tag,
+      projects: projects
+        .filter((p) => p.data.tech.includes(tag))
+        .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)),
+    },
+  }))
+}
+
+interface Props {
+  tag: string
+  projects: CollectionEntry<"projects">[]
+}
+
+const { tag, projects } = Astro.props
+const title = `Tech: ${tag}`
+const tagPaths = svgPaths.find((h) => h.key === `project-tag:${slugify(tag)}`) ?? svgPaths.find((h) => h.key === "portfolio")!
+---
+
+<Layout title={title} description={`Projects built with ${tag}.`}>
+  <section class="mx-auto max-w-6xl px-4 py-12">
+    <div class="mb-8 flex flex-wrap items-end gap-3">
+      <div data-animate="page-heading" role="heading" aria-level="1">
+        <svg
+          viewBox={`0 0 ${Math.ceil(tagPaths.totalWidth + 6)} ${tagPaths.height + 6}`}
+          width="100%"
+          height="auto"
+          style={`max-width: ${Math.ceil(tagPaths.totalWidth + 6)}px; display: block; overflow: visible;`}
+          xmlns="http://www.w3.org/2000/svg"
+          aria-label={title}
+          role="img"
+        >
+          <g transform="translate(3, 3)" opacity="0.45" fill="none" stroke="var(--highlight)" stroke-width="1" stroke-linejoin="round">
+            {tagPaths.glyphs.map((g) => <path d={g.d} />)}
+          </g>
+          <g transform="translate(3, 3)" fill="none" stroke="var(--primary)" stroke-width="1.5" stroke-linejoin="round" class="draw-paths">
+            {tagPaths.glyphs.map((g) => <path d={g.d} class="draw-path" />)}
+          </g>
+        </svg>
+      </div>
+      <Badge variant="secondary" className="mb-1">{projects.length} project{projects.length === 1 ? "" : "s"}</Badge>
+    </div>
+
+    <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => <div data-animate="card"><ProjectCard project={project} /></div>)}
+    </div>
+  </section>
+</Layout>
