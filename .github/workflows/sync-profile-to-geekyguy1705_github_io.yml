@@ -1,9 +1,8 @@
-name: Sync Profile to Repo geekyguy1705.github.io
-
+name: Sync Profile to Main Repo
 on:
   push:
     branches:
-      - abhishek-portfolio
+      - portfolio-abhishek
 
 jobs:
   sync-branch:
