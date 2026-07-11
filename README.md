@@ -81,3 +81,4 @@ pnpm dev
 
 - **[Configuration guide](docs/configuration.md)** — all configurable options with copy-paste examples
 - **[Theming guide](docs/theming.md)** — CSS token system, adding new themes, `sync:themes` workflow
+
