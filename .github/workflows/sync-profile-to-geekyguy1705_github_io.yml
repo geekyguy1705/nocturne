@@ -13,6 +13,7 @@ jobs:
         with:
           ref: portfolio-abhishek
           fetch-depth: 0 # Fetches all history so git history remains intact
+          persist-credentials: false
 
       - name: Check token
         run: |
