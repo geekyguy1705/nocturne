@@ -14,6 +14,13 @@ jobs:
           ref: portfolio-abhishek
           fetch-depth: 0 # Fetches all history so git history remains intact
 
+      - name: Check token
+        run: |
+          if [ -z "${{ secrets.SYNC_TOKEN }}" ]; then
+            echo "Token is empty"
+            exit 1
+          fi
+
       - name: Push to Repo geekyguy1705.github.io
         run: |
           # Configure Git Identity
@@ -26,6 +33,6 @@ jobs:
           # Add geekyguy1705.github.io as a remote using the secret token
           # Replace 'your-username' with your actual GitHub username or Organization name
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/geekyguy1705/geekyguy1705.github.io.git
-          
+
           # Force push the current local branch (portfolio-abhishek) to geekyguy1705.github.io's main branch
           git push target HEAD:main --force
