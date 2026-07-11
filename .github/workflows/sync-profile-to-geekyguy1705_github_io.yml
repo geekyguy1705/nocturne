@@ -28,4 +28,4 @@ jobs:
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/geekyguy1705/geekyguy1705.github.io.git
           
           # Force push the current local branch (portfolio-abhishek) to geekyguy1705.github.io's main branch
-          git push target geekyguy1705.github.io portfolio-abhishek:main --force
+          git push target HEAD:main --force
