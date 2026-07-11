@@ -15,25 +15,18 @@ jobs:
           fetch-depth: 0 # Fetches all history so git history remains intact
           persist-credentials: false
 
-      - name: Check token
-        run: |
-          if [ -z "${{ secrets.SYNC_TOKEN }}" ]; then
-            echo "Token is empty"
-            exit 1
-          fi
-
       - name: Push to Repo geekyguy1705.github.io
         run: |
           # Configure Git Identity
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Remove workflow files so they are not pushed
-          rm -rf .github/workflows
-
           # Add geekyguy1705.github.io as a remote using the secret token
           # Replace 'your-username' with your actual GitHub username or Organization name
           git remote add target https://x-access-token:${{ secrets.SYNC_TOKEN }}@github.com/geekyguy1705/geekyguy1705.github.io.git
 
           # Force push the current local branch (portfolio-abhishek) to geekyguy1705.github.io's main branch
+          rm -rf .github/workflows
+          git add -A
+          git commit -m "Remove GitHub workflows for Pages repo" || true
           git push target HEAD:main --force
