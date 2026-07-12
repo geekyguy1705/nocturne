@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   const projects = await getCollection("projects")
   const tagSet = new Set<string>()
   for (const project of projects) {
-    for (const t of project.data.tech) {
+    for (const t of project.data.tags) {
       tagSet.add(t)
     }
   }
@@ -24,7 +24,7 @@ export async function getStaticPaths() {
     props: {
       tag,
       projects: projects
-        .filter((p) => p.data.tech.includes(tag))
+        .filter((p) => p.data.tags.includes(tag))
         .sort((a, b) => (b.data.date?.getTime() ?? 0) - (a.data.date?.getTime() ?? 0)),
     },
   }))
@@ -36,7 +36,7 @@ interface Props {
 }
 
 const { tag, projects } = Astro.props
-const title = `Tech: ${tag}`
+const title = `Tag: ${tag}`
 const tagPaths = svgPaths.find((h) => h.key === `project-tag:${slugify(tag)}`) ?? svgPaths.find((h) => h.key === "portfolio")!
 ---
 

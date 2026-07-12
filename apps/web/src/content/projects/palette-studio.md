@@ -1,7 +1,7 @@
 ---
 title: "Palette Studio"
 description: "An in-browser colour palette editor built around OKLCH, with real-time contrast checking, CSS variable export, and theme preview."
-tech: ["Vue 3", "TypeScript", "Canvas API", "OKLCH", "culori", "Vite"]
+tags: ["Vue 3", "TypeScript", "Canvas API", "OKLCH", "culori", "Vite"]
 date: 2026-02-20
 link: "https://palette-studio.example.com"
 featured: false

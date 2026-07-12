@@ -2,6 +2,11 @@
 
 A dark-first personal site template built with Astro, Tailwind v4, and Anime.js — animated SVG headings, 15 themes, Markdown content collections, and full-text search.
 
+**New Features:** 
+- [tag-aware command-palette search](#features)
+- [tag pages](#features)
+- [configurable portfolio modes](#features)
+
 ## Features
 
 - **Animated SVG headings** — per-glyph `<path>` elements from `opentype.js` at build time, drawn with Anime.js `createDrawable`. No stroke intersections.
@@ -10,6 +15,9 @@ A dark-first personal site template built with Astro, Tailwind v4, and Anime.js 
 - **Full-text search** — Pagefind index built post-compile, zero client-side bundle overhead
 - **Markdown extras** — KaTeX math, Mermaid diagrams, Shiki syntax highlighting, GFM tables
 - **Spring physics** — Anime.js card hover and scroll-triggered entrance animations
+- **Tag-aware command-palette search** — `tag: <term>` syntax filters results by tag; tags also participate in normal full-text queries; matching tags shown as chips inside each result row
+- **Tag pages** — every unique tag auto-generates a `/blog/tag/:tag` page (articles) and `/portfolio/tag/:tag` page (projects) with animated SVG headings
+- **Portfolio modes** — `single-page` (all projects on one page) or `project-pages` (each project gets its own `/portfolio/:id` page with full Markdown content)
 
 ## Structure
 

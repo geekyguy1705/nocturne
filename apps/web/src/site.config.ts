@@ -1,7 +1,7 @@
 export const siteConfig = {
   title: "Nocturne",
-  description: "A dark-first personal site template — animated SVG headings, 15 themes, content collections, and full-text search.",
-  url: "https://nocturne.dev",
+  description: "A dark-first personal site template built on top of AstroJS - animated SVG headings, 15 themes, content collections, and full-text search.",
+  url: "https://nocturne.abhisheklaha.in",
   author: {
     name: "Abhishek",
     email: "hello@nocturne.dev",

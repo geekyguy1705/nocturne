@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { project } = Astro.props
-const { title, description, tech, featured, date } = project.data
+const { title, description, tags, featured, date } = project.data
 ---
 
 <Card className="flex h-full min-w-0 flex-col">
@@ -29,7 +29,7 @@ const { title, description, tech, featured, date } = project.data
     <p class="text-sm text-muted-foreground line-clamp-3">{description}</p>
   </CardContent>
   <CardFooter className="flex flex-wrap items-center gap-1.5">
-    {tech.map((t: string) => (
+    {tags.map((t: string) => (
       <a href={`/portfolio/tag/${slugify(t)}`} class="inline-flex">
         <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer text-xs">
           {t}

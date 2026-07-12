@@ -15,10 +15,10 @@ export const siteConfig = {
   title: "Nocturne",
 
   // Used as the default <meta description> on pages that don't set their own.
-  description: "A dark-first personal site template — animated SVG headings, 15 themes, content collections, and full-text search.",
+  description: "A dark-first personal site template built on top of Astro - animated SVG headings, 15 themes, content collections, and full-text search.",
 
   // Your canonical URL — used in sitemap and Open Graph tags.
-  url: "https://nocturne.dev",
+  url: "https://nocturne.abhisheklaha.in",
 
   // Author info — used in RSS feeds and article metadata.
   author: {

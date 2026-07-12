@@ -26,7 +26,7 @@ interface Props {
 
 const { project } = Astro.props
 const { Content } = await render(project)
-const { title, description, tech, link, date, featured } = project.data
+const { title, description, tags, link, date, featured } = project.data
 ---
 
 <Layout title={title} description={description}>
@@ -39,7 +39,7 @@ const { title, description, tech, link, date, featured } = project.data
       <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">{title}</h1>
       <p class="text-lg text-muted-foreground">{description}</p>
       <div class="flex flex-wrap gap-2">
-        {tech.map((t: string) => (
+        {tags.map((t: string) => (
           <a href={`/portfolio/tag/${slugify(t)}`}>
             <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer">
               {t}

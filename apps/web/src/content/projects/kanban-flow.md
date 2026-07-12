@@ -1,7 +1,7 @@
 ---
 title: "Kanban Flow"
 description: "A real-time collaborative Kanban board with drag-and-drop, optimistic updates, and per-board theme support."
-tech: ["React", "TypeScript", "DnD Kit", "Supabase", "Tailwind CSS", "Zustand"]
+tags: ["React", "TypeScript", "DnD Kit", "Supabase", "Tailwind CSS", "Zustand"]
 date: 2026-04-15
 link: "https://kanban-flow.example.com"
 featured: false

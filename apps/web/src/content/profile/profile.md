@@ -2,7 +2,7 @@
 name: "Nocturne"
 role: "A Site created with Astro and Tailwind CSS"
 bio: "A dark-mode-first web experience with obsessive attention to typography, motion, and colour."
-avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
+avatar: "./nocturne-logo-04.svg"
 social:
   - name: "GitHub"
     url: "https://github.com"
@@ -27,7 +27,7 @@ resumeLink: "#"
 
 ## About this page
 
-This is a demo site for showcasing a portfolio template built with Astro and Tailwind CSS.
+This is a showcase site for Nocturne, a portfolio template built with Astro and Tailwind CSS.
 
 
 ## About Nocturne

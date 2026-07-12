@@ -62,16 +62,16 @@ for (const file of fs.readdirSync(CONTENT_DIR)) {
   }
 }
 
-// Collect all tech values from projects directory
+// Collect all tag values from projects directory
 const PROJECTS_DIR = path.join(__dirname, "../src/content/projects")
-const techTags = new Set<string>()
+const projectTags = new Set<string>()
 if (fs.existsSync(PROJECTS_DIR)) {
   for (const file of fs.readdirSync(PROJECTS_DIR)) {
     if (!file.endsWith(".md") && !file.endsWith(".mdx")) continue
     const raw = fs.readFileSync(path.join(PROJECTS_DIR, file), "utf-8")
-    const m = raw.match(/^tech:\s*\[([^\]]+)\]/m)
+    const m = raw.match(/^tags:\s*\[([^\]]+)\]/m)
     if (m) {
-      m[1].split(",").forEach((t) => techTags.add(t.trim().replace(/['"]/g, "")))
+      m[1].split(",").forEach((t) => projectTags.add(t.trim().replace(/['"]/g, "")))
     }
   }
 }
@@ -100,9 +100,9 @@ const headings: HeadingDef[] = [
     text:     `Tag: ${tag}`,
     fontSize: 44,
   })),
-  ...Array.from(techTags).map((tag) => ({
+  ...Array.from(projectTags).map((tag) => ({
     key:      `project-tag:${slugify(tag)}`,
-    text:     `Tech: ${tag}`,
+    text:     `Tag: ${tag}`,
     fontSize: 44,
   })),
 ]

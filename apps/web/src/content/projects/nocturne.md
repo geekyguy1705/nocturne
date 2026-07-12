@@ -1,7 +1,7 @@
 ---
 title: "Nocturne"
 description: "A dark-first personal site template built with Astro, Tailwind v4, and Anime.js — featuring animated SVG headings, 15 themes, and full-text search."
-tech: ["Astro", "TypeScript", "Tailwind CSS v4", "Anime.js", "opentype.js", "shadcn/ui"]
+tags: ["Astro", "TypeScript", "Tailwind CSS v4", "Anime.js", "opentype.js", "shadcn/ui"]
 date: 2026-06-28
 link: "https://nocturne.dev"
 featured: true
