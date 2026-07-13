@@ -169,6 +169,27 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
 
+  packages/nocturne:
+    devDependencies:
+      '@types/react':
+        specifier: ^19
+        version: 19.2.15
+      '@types/react-dom':
+        specifier: ^19
+        version: 19.2.3(@types/react@19.2.15)
+      astro:
+        specifier: ^6
+        version: 6.4.6(@types/node@24.12.4)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.62.0)(yaml@2.9.0)
+      react:
+        specifier: ^19.2.6
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.6
+        version: 19.2.6(react@19.2.6)
+      typescript:
+        specifier: ~6
+        version: 6.0.3
+
   packages/ui:
     dependencies:
       '@fontsource-variable/inter':
