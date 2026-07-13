@@ -1,13 +1,13 @@
 import { defineNocturneConfig } from "@geekyguy1705/nocturne/config"
 
 export default defineNocturneConfig({
-  title: "Nocturne Demo",
+  title: "Nocturne",
   description:
-    "A demo site running on the Nocturne 2.0 package — animated SVG headings, themes, content collections, and full-text search.",
-  url: "https://demo.nocturne.dev",
+    "A dark-first personal site template — animated SVG headings, 15 themes, content collections, and full-text search.",
+  url: "https://nocturne.abhisheklaha.in",
   author: {
-    name: "Demo Author",
-    email: "demo@nocturne.dev",
+    name: "Nocturne",
+    email: "hello@nocturne.dev",
   },
   nav: [
     { label: "Home", href: "/" },
@@ -16,7 +16,7 @@ export default defineNocturneConfig({
     { label: "Profile", href: "/profile" },
   ],
   hero: {
-    eyebrow: "Nocturne 2.0",
+    eyebrow: "Astro Template",
     actions: [
       { label: "Read the blog", href: "/blog" },
       { label: "View profile", href: "/profile", variant: "outline" },

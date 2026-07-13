@@ -1,19 +1,35 @@
 ---
-name: "Demo Author"
-role: "Software Engineer"
-bio: "A demo profile showing the Nocturne 2.0 package profile page."
+name: "Nocturne"
+role: "A Site created with Astro and Tailwind CSS"
+bio: "A dark-mode-first web experience with obsessive attention to typography, motion, and colour."
+avatar: "./nocturne-logo-04.svg"
 social:
   - name: "GitHub"
-    url: "https://github.com/geekyguy1705"
-  - name: "Website"
-    url: "https://demo.nocturne.dev"
+    url: "https://github.com"
+    icon: "github"
+  - name: "LinkedIn"
+    url: "https://linkedin.com"
+    icon: "linkedin"
+  - name: "Twitter"
+    url: "https://twitter.com"
+    icon: "twitter"
 skills:
-  - "TypeScript"
   - "Astro"
   - "React"
+  - "TypeScript"
   - "Tailwind CSS"
+  - "Anime.js"
+  - "Design Systems"
+  - "Node.js"
+  - "PostgreSQL"
+resumeLink: "#"
 ---
 
-## About
+## About this page
 
-This is a demo profile page running on the Nocturne 2.0 package. Replace this content with your own profile markdown.
+This is a showcase site for Nocturne, a portfolio template built with Astro and Tailwind CSS.
+
+
+## About Nocturne
+
+This is a dark-first personal site template — animated SVG headings, 15 themes, content collections, and full-text search.
