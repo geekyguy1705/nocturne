@@ -6,7 +6,8 @@ Package/core work may change only:
 
 - `packages/nocturne/**`
 - `apps/demo/**`
-- `apps/portfolio-fixture/**`
+- `nocturne.workspace.json`
+- `scripts/dev.mjs`
 - Root workspace and build configuration required by Nocturne 2.0
 - Generic documentation
 - Nocturne 2.0 CI and release validation
