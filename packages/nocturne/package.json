@@ -1,0 +1,65 @@
+{
+  "name": "@geekyguy1705/nocturne",
+  "version": "2.0.0-next.0",
+  "description": "Reusable Astro integration for the Nocturne site template",
+  "type": "module",
+  "private": true,
+  "sideEffects": [
+    "./src/styles.css"
+  ],
+  "files": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.astro",
+    "src/**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "import": "./src/index.ts"
+    },
+    "./astro": {
+      "types": "./src/astro.ts",
+      "import": "./src/astro.ts"
+    },
+    "./config": {
+      "types": "./src/config/index.ts",
+      "import": "./src/config/index.ts"
+    },
+    "./content": {
+      "types": "./src/content/index.ts",
+      "import": "./src/content/index.ts"
+    },
+    "./styles.css": "./src/styles.css",
+    "./routes/home": "./src/routes/index.astro",
+    "./routes/not-found": "./src/routes/404.astro",
+    "./routes/blog": "./src/routes/blog/index.astro",
+    "./routes/blog-post": "./src/routes/blog/[slug].astro",
+    "./routes/blog-tag": "./src/routes/blog/tag/[tag].astro",
+    "./routes/portfolio": "./src/routes/portfolio/index.astro",
+    "./routes/portfolio-project": "./src/routes/portfolio/[slug].astro",
+    "./routes/portfolio-tag": "./src/routes/portfolio/tag/[tag].astro",
+    "./routes/portfolio-tags": "./src/routes/portfolio/tags/index.astro",
+    "./routes/profile": "./src/routes/profile.astro"
+  },
+  "scripts": {
+    "lint": "tsc --noEmit",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "astro": ">=6.0.0 <7.0.0",
+    "react": ">=19.0.0 <20.0.0",
+    "react-dom": ">=19.0.0 <20.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "astro": "^6",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "typescript": "~6"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
