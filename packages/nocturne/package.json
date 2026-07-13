@@ -130,6 +130,7 @@
     "./routes/portfolio-project": "./src/routes/portfolio/[slug].astro",
     "./routes/portfolio-tag": "./src/routes/portfolio/tag/[tag].astro",
     "./routes/portfolio-tags": "./src/routes/portfolio/tags/index.astro",
+    "./routes/tags": "./src/routes/tags/index.astro",
     "./routes/profile": "./src/routes/profile.astro"
   },
   "scripts": {

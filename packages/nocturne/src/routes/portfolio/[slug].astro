@@ -1,5 +1,66 @@
 ---
-const { slug } = Astro.params
+import Layout from "../../layouts/Layout.astro"
+import MDXContent from "../../components/MDXContent.astro"
+import { Badge } from "../../ui/components/badge.tsx"
+import { Button } from "../../ui/components/button.tsx"
+import { ExternalLink } from "lucide-react"
+import { slugify } from "../../lib/utils.ts"
+import { siteConfig } from "virtual:nocturne/config"
+import { getCollection, render } from "astro:content"
+import type { CollectionEntry } from "astro:content"
+
+export async function getStaticPaths() {
+  if (!siteConfig.portfolio.enabled || siteConfig.portfolio.mode === "single-page") {
+    return []
+  }
+  const projects: CollectionEntry<"projects">[] = await getCollection("projects")
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }))
+}
+
+interface Props {
+  project: CollectionEntry<"projects">
+}
+
+const { project } = Astro.props
+const { Content } = await render(project)
+const { title, description, tags, link, date, featured } = project.data
 ---
 
-<main><h1>{slug}</h1></main>
+<Layout title={title} description={description}>
+  <article class="mx-auto max-w-3xl px-4 py-12">
+    <header class="mb-8 flex flex-col gap-3">
+      <div class="flex items-center gap-2">
+        {featured && <Badge variant="default">Featured</Badge>}
+        {date && <span class="text-sm text-muted-foreground">{new Date(date).getFullYear()}</span>}
+      </div>
+      <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">{title}</h1>
+      <p class="text-lg text-muted-foreground">{description}</p>
+      <div class="flex flex-wrap gap-2">
+        {tags.map((t: string) => (
+          <a href={`/portfolio/tag/${slugify(t)}`}>
+            <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer">
+              {t}
+            </Badge>
+          </a>
+        ))}
+      </div>
+      {
+        link && (
+          <div class="mt-2">
+            <Button asChild variant="outline">
+              <a href={link} target="_blank" rel="noopener noreferrer">
+                <ExternalLink /> Visit project
+              </a>
+            </Button>
+          </div>
+        )
+      }
+    </header>
+    <MDXContent>
+      <Content />
+    </MDXContent>
+  </article>
+</Layout>

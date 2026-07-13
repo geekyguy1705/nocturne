@@ -1,17 +1,12 @@
 ---
-import Layout from "../../../layouts/Layout.astro"
+import Layout from "../../layouts/Layout.astro"
 import { getCollection } from "astro:content"
-import { slugify } from "../../../lib/utils.ts"
-import { siteConfig } from "virtual:nocturne/config"
+import { slugify } from "../../lib/utils.ts"
 
-if (!siteConfig.portfolio.enabled || siteConfig.portfolio.mode === "single-page") {
-  return Astro.redirect("/portfolio")
-}
-
-const projects = await getCollection("projects")
+const articles = (await getCollection("articles")).filter((a) => !a.data.draft)
 const counts = new Map<string, number>()
-for (const project of projects) {
-  for (const tag of project.data.tags) {
+for (const article of articles) {
+  for (const tag of article.data.tags) {
     counts.set(tag, (counts.get(tag) || 0) + 1)
   }
 }
@@ -19,10 +14,10 @@ const tags = Array.from(counts.entries()).sort((a, b) => b[1] - a[1])
 const chartVars = ["--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-5"]
 ---
 
-<Layout title="Tags" description="Browse projects by tag.">
+<Layout title="Tags" description="Browse articles by tag.">
   <section class="mx-auto max-w-4xl px-4 py-12">
     <h1 class="text-3xl font-semibold tracking-tight">Tags</h1>
-    <p class="mt-2 text-muted-foreground">Browse projects by technology or topic.</p>
+    <p class="mt-2 text-muted-foreground">Browse articles by topic.</p>
 
     <div class="mt-8 flex flex-wrap gap-3">
       {
@@ -30,7 +25,7 @@ const chartVars = ["--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-
           const cv = chartVars[i % chartVars.length]
           return (
             <a
-              href={`/portfolio/tag/${slugify(tag)}`}
+              href={`/blog/tag/${slugify(tag)}`}
               class="tag-pill-link"
               style={`--tag-color: var(${cv});`}
             >
