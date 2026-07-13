@@ -15,8 +15,33 @@ export default defineNocturneConfig({
     { label: "Portfolio", href: "/portfolio" },
     { label: "Profile", href: "/profile" },
   ],
+  hero: {
+    eyebrow: "Nocturne 2.0",
+    actions: [
+      { label: "Read the blog", href: "/blog" },
+      { label: "View profile", href: "/profile", variant: "outline" },
+    ],
+  },
+  home: {
+    latestArticlesLabel: "Latest articles",
+    featuredProjectsLabel: "Featured projects",
+  },
+  blog: {
+    enabled: true,
+    description:
+      "Articles on frontend engineering, design systems, and static-site generators.",
+    browseTagsLabel: "Browse tags",
+  },
   portfolio: {
     enabled: true,
     mode: "project-pages",
+    description: "Selected projects and case studies.",
+    browseTagsLabel: "Browse tags",
+  },
+  footer: {
+    links: [
+      { label: "Blog", href: "/blog" },
+      { label: "Profile", href: "/profile" },
+    ],
   },
 })

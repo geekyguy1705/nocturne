@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "turbo build",
-    "dev": "turbo dev",
+    "dev": "node -e \"const fs=require('fs');const p=fs.existsSync('apps/portfolio-abhishek/package.json')?'portfolio-abhishek':'demo';require('child_process').execSync('pnpm --filter '+p+' dev',{stdio:'inherit'})\"",
+    "dev:demo": "pnpm --filter demo dev",
+    "dev:personal": "pnpm --filter portfolio-abhishek dev",
     "lint": "turbo lint",
     "format": "turbo format",
     "typecheck": "turbo typecheck"

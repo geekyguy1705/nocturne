@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro"
 import ArticleCard from "../../components/ArticleCard.astro"
 import { getCollection } from "astro:content"
 import type { CollectionEntry } from "astro:content"
+import { siteConfig } from "virtual:nocturne/config"
 import svgPaths from "virtual:nocturne/svg-paths"
 
 const blogPaths = svgPaths.find((h) => h.key === "blog")!
@@ -12,7 +13,7 @@ const articles: CollectionEntry<"articles">[] = (await getCollection("articles")
   .sort((a: CollectionEntry<"articles">, b: CollectionEntry<"articles">) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
 ---
 
-<Layout title="Blog" description="Articles on frontend engineering, design systems, and static-site generators.">
+<Layout title="Blog" description={siteConfig.blog.description}>
   <section class="mx-auto max-w-6xl px-4 py-12">
     <div class="mb-8">
       <div data-animate="page-heading" class="mb-3" role="heading" aria-level="1">
@@ -33,8 +34,8 @@ const articles: CollectionEntry<"articles">[] = (await getCollection("articles")
           </g>
         </svg>
       </div>
-      <p data-animate="section-heading" class="mt-2 text-muted-foreground">Articles on frontend engineering, design systems, and static-site generators.</p>
-      <a href="/tags" class="mt-2 inline-block text-sm font-medium text-highlight">Browse tags</a>
+      <p data-animate="section-heading" class="mt-2 text-muted-foreground">{siteConfig.blog.description}</p>
+      <a href="/tags" class="mt-2 inline-block text-sm font-medium text-highlight">{siteConfig.blog.browseTagsLabel}</a>
     </div>
 
     <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
