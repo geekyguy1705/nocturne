@@ -1,0 +1,11 @@
+{
+  "defaultApp": "demo",
+  "apps": ["demo"],
+  "dev": {
+    "port": 4321,
+    "host": false
+  },
+  "build": {
+    "outputDir": "dist"
+  }
+}

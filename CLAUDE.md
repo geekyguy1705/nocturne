@@ -7,9 +7,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 All commands should be run from the repo root using `pnpm`:
 
 ```bash
-pnpm dev                        # Start dev server (personal app if apps/portfolio-abhishek/ exists, otherwise demo)
+pnpm dev                        # Start dev server (reads nocturne.workspace.json for defaultApp, falls back to first app in apps/)
 pnpm dev:demo                   # Start demo dev server explicitly
-pnpm dev:personal               # Start personal app dev server explicitly
 pnpm --filter @geekyguy1705/nocturne build  # Build package
 pnpm --filter @geekyguy1705/nocturne typecheck  # Run TypeScript checks
 pnpm --filter @geekyguy1705/nocturne test      # Run package tests
@@ -22,7 +21,10 @@ This is a **pnpm + Turbo monorepo** with two workspaces:
 
 - **`packages/nocturne/`** — Reusable Astro integration package (components, layouts, routes, styles, scripts, config, content schemas)
 - **`apps/demo/`** — Demo app consuming the package (fixture content about Nocturne)
-- **`apps/portfolio-abhishek/`** — Personal portfolio app (only on `nocturne-2.0/site-abhishek` branch)
+
+### Workspace configuration
+
+`nocturne.workspace.json` at the repo root controls workspace-level settings: `defaultApp` (which app `pnpm dev` runs), `apps` (explicit app list), `dev.port`, `dev.host`, and `build.outputDir`. The `scripts/dev.mjs` script reads this file to determine which app to start. If `defaultApp` is unset, the first app in `apps/` is used automatically.
 
 ### Data flow
 
