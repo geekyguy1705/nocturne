@@ -30,6 +30,10 @@
       "types": "./src/content/index.ts",
       "import": "./src/content/index.ts"
     },
+    "./workspace": {
+      "types": "./src/workspace.ts",
+      "import": "./src/workspace.ts"
+    },
     "./styles.css": "./src/styles.css",
     "./styles/globals.css": "./src/styles/globals.css",
     "./styles/markdown.css": "./src/styles/markdown.css",

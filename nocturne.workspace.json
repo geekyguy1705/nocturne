@@ -1,0 +1,11 @@
+{
+  "defaultApp": "portfolio-abhishek",
+  "apps": ["portfolio-abhishek"],
+  "dev": {
+    "port": 4321,
+    "host": false
+  },
+  "build": {
+    "outputDir": "dist"
+  }
+}

@@ -7,8 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 All commands should be run from the repo root using `pnpm`:
 
 ```bash
-pnpm dev                        # Start dev server (personal app if apps/portfolio-abhishek/ exists, otherwise demo)
-pnpm dev:demo                   # Start demo dev server explicitly
+pnpm dev                        # Start dev server (reads nocturne.workspace.json for defaultApp, falls back to first app in apps/)
 pnpm dev:personal               # Start personal app dev server explicitly
 pnpm --filter @geekyguy1705/nocturne build  # Build package
 pnpm --filter @geekyguy1705/nocturne typecheck  # Run TypeScript checks
@@ -21,12 +20,15 @@ pnpm format       # Run Prettier across all workspaces
 This is a **pnpm + Turbo monorepo** with two workspaces:
 
 - **`packages/nocturne/`** — Reusable Astro integration package (components, layouts, routes, styles, scripts, config, content schemas)
-- **`apps/demo/`** — Demo app consuming the package (fixture content about Nocturne)
-- **`apps/portfolio-abhishek/`** — Personal portfolio app (only on `nocturne-2.0/site-abhishek` branch)
+- **`apps/portfolio-abhishek/`** — Personal portfolio app consuming the package
+
+### Workspace configuration
+
+`nocturne.workspace.json` at the repo root controls workspace-level settings: `defaultApp` (which app `pnpm dev` runs), `apps` (explicit app list), `dev.port`, `dev.host`, and `build.outputDir`. The `scripts/dev.mjs` script reads this file to determine which app to start. If `defaultApp` is unset, the first app in `apps/` is used automatically.
 
 ### Data flow
 
-Content is stored as Markdown in `apps/demo/src/content/` across three Astro Content Collections: `articles`, `projects`, and `profile`. Schemas are defined using factory functions from `@geekyguy1705/nocturne/content`. Routes are injected by the integration from `packages/nocturne/src/routes/`.
+Content is stored as Markdown in `apps/portfolio-abhishek/src/content/` across three Astro Content Collections: `articles`, `projects`, and `profile`. Schemas are defined using factory functions from `@geekyguy1705/nocturne/content`. Routes are injected by the integration from `packages/nocturne/src/routes/`.
 
 ### UI component system
 
