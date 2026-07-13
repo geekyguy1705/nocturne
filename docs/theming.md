@@ -20,7 +20,35 @@ html[data-site-theme="tokyonight-night"] {
 
 On page load, an inline script in `Layout.astro` reads `localStorage.getItem("theme")` and sets `data-site-theme` on `<html>` before the first paint — no flash of unstyled content. When the user picks a theme in the ThemePicker, it calls `setAttribute("data-site-theme", id)` and saves to localStorage.
 
-The `.dark` class on `<html>` is set simultaneously for Tailwind dark-mode utilities (`dark:text-*`, etc.).
+The `.dark` class on `<html>` is set simultaneously for Tailwind dark-mode utilities.
+
+---
+
+## Configuring default themes
+
+Set the default light and dark themes in your `nocturne.config.ts`:
+
+```ts
+export default defineNocturneConfig({
+  themes: {
+    defaultLight: "latte",
+    defaultDark: "tokyonight-night",
+  },
+})
+```
+
+These are applied when no theme is stored in `localStorage` (first-time visitors).
+
+**Available theme IDs:**
+
+| Scheme | IDs |
+|---|---|
+| Catppuccin | `latte` (light), `frappe`, `macchiato`, `mocha` |
+| Gruvbox | `gruvbox-light` (light), `gruvbox-dark` |
+| Rosé Pine | `rosepine-dawn` (light), `rosepine-main`, `rosepine-moon` |
+| Nord | `nord-light` (light), `nord-dark` |
+| Dracula | `dracula` |
+| Tokyo Night | `tokyonight-night`, `tokyonight-storm`, `tokyonight-moon` |
 
 ---
 
@@ -71,25 +99,12 @@ Every theme defines the following tokens. All are available as CSS variables and
 
 ## Adding a new theme
 
-### 1. Choose a colour scheme file
+### 1. Create a CSS file
 
-Theme CSS lives in `packages/ui/src/styles/`. Pick the closest existing file or create a new one:
-
-```
-packages/ui/src/styles/
-  catppuccin.css    — latte, frappe, macchiato, mocha
-  gruvbox.css       — gruvbox-dark, gruvbox-light
-  rosepine.css      — rosepine-main, rosepine-moon, rosepine-dawn
-  nord.css          — nord-dark, nord-light
-  dracula.css       — dracula
-  tokyo-night.css   — tokyonight-night, tokyonight-storm, tokyonight-moon
-```
-
-### 2. Add the CSS block
-
-Copy an existing theme block and change the values. All tokens listed above must be present:
+Theme CSS lives in `packages/nocturne/src/styles/`. Add a new file or extend an existing one:
 
 ```css
+/* my-theme.css */
 html[data-site-theme="my-theme"] {
   --background:          #1c1e26;
   --foreground:          #e0e0f0;
@@ -111,7 +126,6 @@ html[data-site-theme="my-theme"] {
   --ring:                #a78bfa;
   --radius:              0.45rem;
 
-  /* Nocturne extended tokens */
   --highlight:           #f472b6;
   --accent-1:            #a78bfa;
   --accent-2:            #818cf8;
@@ -126,44 +140,26 @@ html[data-site-theme="my-theme"] {
 }
 ```
 
-### 3. Register the theme ID in `ThemePicker.tsx`
+### 2. Import it in `globals.css`
 
-Open `apps/web/src/components/ThemePicker.tsx` and add your theme to the `THEME_MAP`:
+```css
+@import "./my-theme.css";
+```
+
+### 3. Register in ThemePicker
+
+Add your theme to the `THEME_MAP` in `packages/nocturne/src/components/ThemePicker.tsx`:
 
 ```ts
-// Find the appropriate group or create a new one:
 {
   id: "my-theme",
   label: "My Theme",
-  primary: "#a78bfa",   // shown in the colour swatch
+  primary: "#a78bfa",
   secondary: "#f472b6",
 }
 ```
 
-Add the ID to the `ALL_THEME_IDS` array and the correct group in `THEME_GROUPS`. If it's a light theme, add it to the `LIGHT_THEMES` Set in `Layout.astro`:
-
-```ts
-// Layout.astro inline script:
-const LIGHT_THEMES = new Set(["latte", "gruvbox-light", "rosepine-dawn", "nord-light", "my-light-theme"])
-```
-
-### 4. If it's a light theme
-
-Add the ID to `LIGHT_THEMES` in the inline script block in `apps/web/src/layouts/Layout.astro`. This ensures `.dark` is not applied and Tailwind dark utilities are inactive.
-
----
-
-## Regenerating themes from palette packages
-
-Catppuccin and Rosé Pine themes are sourced from their official npm palette packages. If you want to sync to a newer version of their palettes:
-
-```bash
-pnpm --filter web sync:themes
-```
-
-This runs `scripts/sync-themes.ts` which reads `@catppuccin/palette` and `@rose-pine/palette` and regenerates `catppuccin.css` and `rosepine.css`.
-
-> **Note:** Gruvbox, Nord, Dracula, and Tokyo Night colours are hardcoded in `sync-themes.ts` — they don't have official npm palette packages. Edit the hex values in the script directly if you want to adjust them.
+If it's a light theme, add the ID to the `LIGHT_THEMES` set in `packages/nocturne/src/layouts/Layout.astro`.
 
 ---
 
@@ -172,17 +168,12 @@ This runs `scripts/sync-themes.ts` which reads `@catppuccin/palette` and `@rose-
 Tailwind utilities generated from `--color-*` tokens:
 
 ```html
-<!-- text colours -->
 <p class="text-highlight">Accented text</p>
 <p class="text-muted-foreground">Subdued text</p>
-
-<!-- backgrounds -->
 <div class="bg-card border border-border rounded-lg p-4">Card</div>
-
-<!-- mixing at runtime -->
 <div style="background: color-mix(in oklch, var(--accent-1) 10%, var(--background))">
   Tinted surface
 </div>
 ```
 
-The `color-mix()` approach is used throughout Nocturne for hover states, focus rings, and the header background tint — it derives intermediate values without requiring pre-generated colour scales.
+The `color-mix()` approach is used throughout Nocturne for hover states, focus rings, and the header background tint.

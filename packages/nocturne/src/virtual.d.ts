@@ -18,3 +18,25 @@ declare module "virtual:nocturne/svg-paths" {
   const svgPaths: SvgPathEntry[]
   export default svgPaths
 }
+
+declare module "opentype.js" {
+  export interface Font {
+    unitsPerEm: number
+    ascender: number
+    descender: number
+    tables: {
+      os2?: {
+        sCapHeight?: number
+      }
+    }
+    charToGlyph(char: string): Glyph
+    getKerningValue(left: Glyph, right: Glyph): number
+    parse(buffer: ArrayBuffer): Font
+  }
+  export interface Glyph {
+    advanceWidth: number
+    getPath(x: number, y: number, fontSize: number): { toPathData(decimals?: number): string }
+  }
+  export function parse(buffer: ArrayBuffer): Font
+}
+
