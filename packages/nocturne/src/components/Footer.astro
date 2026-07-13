@@ -8,15 +8,9 @@ import { siteConfig } from "virtual:nocturne/config"
       &copy; {new Date().getFullYear()} {siteConfig.author.name}. All rights reserved.
     </p>
     <div class="flex gap-6">
-      <a href="/blog" class="text-sm text-muted-foreground hover:text-primary transition-colors">Blog</a>
-      <a href="/profile" class="text-sm text-muted-foreground hover:text-primary transition-colors">Profile</a>
-      {
-        siteConfig.portfolio.enabled && (
-          <a href="/portfolio" class="text-sm text-muted-foreground hover:text-primary transition-colors">
-            Portfolio
-          </a>
-        )
-      }
+      {siteConfig.footer.links.map((link: { label: string; href: string }) => (
+        <a href={link.href} class="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</a>
+      ))}
     </div>
   </div>
 </footer>

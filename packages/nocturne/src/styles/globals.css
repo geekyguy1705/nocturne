@@ -24,9 +24,7 @@
 
 @source "../../../apps/**/*.{ts,tsx,astro}";
 
-@source "../../../components/**/*.{ts,tsx}";
-
-@source "../**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx,astro}";
 
 
 
