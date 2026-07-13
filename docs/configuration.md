@@ -1,262 +1,213 @@
 # Configuration Guide
 
-Every user-facing setting in Nocturne lives in one of three places: `site.config.ts` for global site settings, the content files in `src/content/` for your personal data, and `Layout.astro` / `ThemePicker.tsx` for the default theme.
+Nocturne 2.0 is a reusable Astro integration. All configuration lives in your consumer app — the package provides types, schemas, and defaults.
 
 ---
 
-## Site config (`apps/web/src/site.config.ts`)
+## Quick Start
 
-This is the primary configuration file. Edit it first when setting up the template.
+```bash
+pnpm add @geekyguy1705/nocturne @astrojs/react astro react react-dom
+```
+
+```js
+// astro.config.mjs
+import { defineConfig } from "astro/config"
+import react from "@astrojs/react"
+import { nocturne } from "@geekyguy1705/nocturne/astro"
+
+export default defineConfig({
+  integrations: [
+    react(),
+    nocturne(),
+  ],
+})
+```
+
+---
+
+## Site config (`nocturne.config.ts`)
+
+Create a `nocturne.config.ts` in your project root:
 
 ```ts
-export const siteConfig = {
-  // The site name — appears in the header and drives the hero SVG heading.
-  // ⚠️  After changing this, run: pnpm --filter web gen:paths
-  title: "Nocturne",
+import { defineNocturneConfig } from "@geekyguy1705/nocturne/config"
 
-  // Used as the default <meta description> on pages that don't set their own.
-  description: "A dark-first personal site template built on top of Astro - animated SVG headings, 15 themes, content collections, and full-text search.",
-
-  // Your canonical URL — used in sitemap and Open Graph tags.
-  url: "https://nocturne.abhisheklaha.in",
-
-  // Author info — used in RSS feeds and article metadata.
+export default defineNocturneConfig({
+  title: "My Site",
+  description: "My personal website.",
+  url: "https://example.com",
   author: {
-    name: "Abhishek",
-    email: "hello@nocturne.dev",
+    name: "Jane Doe",
+    email: "jane@example.com",
   },
-
-  // Navigation links shown in the header (desktop + mobile).
-  // "Portfolio" and "Profile" are added automatically if portfolio.enabled is true.
   nav: [
-    { label: "Home",  href: "/" },
-    { label: "Blog",  href: "/blog" },
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
   ],
-
   portfolio: {
-    // Set to false to hide the Portfolio section entirely (no nav link, no /portfolio page).
     enabled: true,
-
-    // "project-pages" — each project gets its own /portfolio/:id page with full Markdown content.
-    // "single-page"   — all projects listed on one /portfolio page, no individual pages.
     mode: "project-pages",
   },
-}
+})
 ```
 
-### ⚠️ Title change workflow
+### All config options
 
-The hero heading is a pre-rendered SVG — glyph paths are baked in at build time. Whenever you change `title`, regenerate them:
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `title` | `string` | `"Nocturne"` | Site title — drives the hero SVG heading |
+| `description` | `string` | `"A dark-first personal site template..."` | Default meta description |
+| `url` | `string` | `"https://example.com"` | Canonical URL for sitemap and OG tags |
+| `author.name` | `string` | `"Author Name"` | Author name for RSS and article metadata |
+| `author.email` | `string` | `"hello@example.com"` | Author email |
+| `nav` | `NavLink[]` | `[{Home}, {Blog}]` | Header navigation links |
+| `hero.eyebrow` | `string` | `"Astro Template"` | Eyebrow text above hero heading |
+| `hero.actions` | `HeroAction[]` | `[Read blog, View profile]` | CTA buttons on hero |
+| `home.latestArticlesLabel` | `string` | `"Latest articles"` | Section heading on home page |
+| `home.featuredProjectsLabel` | `string` | `"Featured projects"` | Section heading on home page |
+| `blog.enabled` | `boolean` | `true` | Show/hide blog section |
+| `blog.description` | `string` | `"Articles on..."` | Blog page meta description |
+| `blog.browseTagsLabel` | `string` | `"Browse tags"` | Link text on blog page |
+| `portfolio.enabled` | `boolean` | `true` | Show/hide portfolio section |
+| `portfolio.mode` | `"single-page" \| "project-pages"` | `"project-pages"` | Portfolio layout mode |
+| `portfolio.description` | `string` | `"Selected projects..."` | Portfolio page meta description |
+| `portfolio.browseTagsLabel` | `string` | `"Browse tags"` | Link text on portfolio page |
+| `profile.enabled` | `boolean` | `true` | Show/hide profile page |
+| `footer.links` | `FooterLink[]` | `[Blog, Profile]` | Footer navigation links |
+| `themes.defaultLight` | `string` | `"latte"` | Default light theme ID |
+| `themes.defaultDark` | `string` | `"tokyonight-night"` | Default dark theme ID |
+| `search.enabled` | `boolean` | `true` | Enable/disable search |
+| `seo.openGraph` | `boolean` | `true` | Generate Open Graph tags |
+| `seo.twitter` | `boolean` | `true` | Generate Twitter card tags |
+
+### Title change workflow
+
+The hero heading is a pre-rendered SVG. After changing `title`, regenerate paths:
 
 ```bash
-pnpm --filter web gen:paths
+pnpm gen:svg
 ```
-
-This is also run automatically as part of `pnpm build`.
 
 ---
 
-## Profile (`apps/web/src/content/profile/profile.md`)
+## Content collections
 
-One file, one profile. All fields are optional except `name`, `role`, and `bio`.
+Define your collections in `src/content.config.ts` using the package schemas:
+
+```ts
+import { defineCollection } from "astro:content"
+import { glob } from "astro/loaders"
+import {
+  createArticleSchema,
+  createProjectSchema,
+  createProfileSchema,
+} from "@geekyguy1705/nocturne/content"
+
+const articles = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
+  schema: createArticleSchema(),
+})
+
+const projects = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
+  schema: createProjectSchema(),
+})
+
+const profile = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/profile" }),
+  schema: createProfileSchema(),
+})
+
+export const collections = { articles, projects, profile }
+```
+
+### Extending schemas
+
+Pass extension fields to customize:
+
+```ts
+const articles = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/articles" }),
+  schema: createArticleSchema({
+    coverImageAlt: z.string().optional(),
+  }),
+})
+```
+
+### Articles (`src/content/articles/*.md`)
 
 ```yaml
 ---
-# Displayed as the animated SVG heading on the /profile page.
-name: "Abhishek"
+title: "My Article"
+description: "A description."
+publishDate: 2025-01-15
+tags: ["typescript", "astro"]
+draft: false
+author: "Jane"
+readingTime: "5 min"
+---
+```
 
-# Shown below the heading in muted text.
-role: "Frontend Engineer & Design Systems Nerd"
+### Projects (`src/content/projects/*.md`)
 
-# Used as the <meta description> on the profile page.
-bio: "I craft dark-mode-first web experiences with obsessive attention to typography, motion, and colour."
+```yaml
+---
+title: "My Project"
+description: "A project description."
+tags: ["react", "typescript"]
+date: 2025-01-15
+link: "https://example.com"
+featured: true
+---
+```
 
-# URL to your avatar image. Supports Unsplash, local paths (/avatar.png), or any absolute URL.
-# If omitted, a fallback icon is shown.
-avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80"
+### Profile (`src/content/profile/profile.md`)
 
-# Social links rendered as outline buttons below the heading.
-# Supported icon values: "github" | "linkedin" | "twitter" | "instagram" | "youtube" | "rss"
+Exactly one file when `profile.enabled` is `true`:
+
+```yaml
+---
+name: "Jane"
+role: "Software Engineer"
+bio: "Building things on the web."
 social:
   - name: "GitHub"
-    url: "https://github.com/yourusername"
+    url: "https://github.com/jane"
     icon: "github"
-  - name: "LinkedIn"
-    url: "https://linkedin.com/in/yourprofile"
-    icon: "linkedin"
-  - name: "Twitter"
-    url: "https://twitter.com/yourhandle"
-    icon: "twitter"
-
-# Rendered as shadcn Badge components in the profile block.
-skills:
-  - "Astro"
-  - "React"
-  - "TypeScript"
-  - "Tailwind CSS"
-
-# Optional — renders a primary "Resume" button. Set to "#" to disable.
-resumeLink: "https://your-resume.pdf"
+skills: ["TypeScript", "React", "Astro"]
+resumeLink: "https://example.com/resume.pdf"
 ---
-
-Your profile body content goes here as regular Markdown.
-
-## About me
-
-Write anything — this renders as styled Markdown below the profile block.
 ```
 
 ---
 
-## Articles (`apps/web/src/content/articles/*.md`)
-
-Create one `.md` file per article. Filename becomes the URL slug (e.g. `my-post.md` → `/blog/my-post`).
-
-```yaml
----
-# Required
-title: "Build-Time SVG Fonts with opentype.js"
-description: "Why SVG <text> strokes intersect and how to fix it at the vector level."
-
-# Required — ISO date string or YYYY-MM-DD
-publishDate: 2026-06-10
-
-# Optional — shown as "Updated" if present
-updatedDate: 2026-06-15
-
-# Optional — used for tag pages at /blog/tag/:tag
-# ⚠️  After adding a new tag, run: pnpm --filter web gen:paths
-tags: ["svg", "typography", "build-tools"]
-
-# Optional — set to true to exclude from listing pages and search index
-draft: false
-
-# Optional — Unsplash URL, local path, or any image URL
-coverImage: "https://images.unsplash.com/photo-1524666643752-b381eb00effb?w=800&q=80"
-
-# Optional — defaults to siteConfig.author.name
-author: "Abhishek"
-
-# Optional — displayed in the article header (not auto-calculated)
-readingTime: "9 min"
----
-
-Article body in Markdown. Supports:
-- Syntax highlighting (```ts ... ```)
-- Math ($E = mc^2$ inline, $$...$$ block)
-- Mermaid diagrams (```mermaid ... ```)
-- GFM tables, task lists, strikethrough
-```
-
-### Tag note
-
-Every unique tag automatically gets a `/blog/tag/:tag` page with an animated SVG heading. After adding tags that haven't been used before, run `pnpm --filter web gen:paths` to generate their heading paths.
-
----
-
-## Projects (`apps/web/src/content/projects/*.md`)
-
-Create one `.md` file per project. Filename becomes the URL slug (e.g. `my-app.md` → `/portfolio/my-app`).
-
-```yaml
----
-# Required
-title: "Palette Studio"
-description: "An in-browser OKLCH colour palette editor with real-time contrast checking and CSS variable export."
-
-# Optional — rendered as tech stack badges on the project card and page
-tech: ["Vue 3", "TypeScript", "Canvas API", "OKLCH"]
-
-# Optional — ISO date or YYYY-MM-DD, used for sorting
-date: 2026-02-20
-
-# Optional — renders a "View project" link button
-link: "https://palette-studio.example.com"
-
-# Optional — featured projects are sorted to the top of the portfolio listing
-featured: true
-
-# Optional — Unsplash URL or local path
-coverImage: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&q=80"
----
-
-Project body in Markdown. Describe architecture, highlights, and outcomes.
-```
-
----
-
-## Default theme
-
-The default theme is applied when no theme is stored in `localStorage` (first-time visitors).
-
-**Two places to update:**
-
-### 1. `apps/web/src/layouts/Layout.astro`
-
-Find this line and change the dark/light fallbacks:
+## Integration options
 
 ```ts
-const theme = ALL_THEMES.includes(stored)
-  ? stored
-  : (prefersDark ? "tokyonight-night" : "latte")
-//                  ^^^^^^^^^^^^^^^^    ^^^^^
-//                  dark OS default     light OS default
+nocturne({
+  configFile: "./nocturne.config.ts",
+  svgPathsFile: "./src/generated/svg-paths.json",
+  articlesDirectory: "./src/content/articles",
+  projectsDirectory: "./src/content/projects",
+  profileDirectory: "./src/content/profile",
+})
 ```
 
-### 2. `apps/web/src/components/ThemePicker.tsx`
-
-```ts
-const DEFAULT_THEME: ThemeId = "tokyonight-night"
-```
-
-This controls the picker's initial selected state when no `localStorage` value exists.
-
-**Available theme IDs:**
-
-| Scheme | IDs |
-|---|---|
-| Catppuccin | `latte` (light), `frappe`, `macchiato`, `mocha` |
-| Gruvbox | `gruvbox-light` (light), `gruvbox-dark` |
-| Rosé Pine | `rosepine-dawn` (light), `rosepine-main`, `rosepine-moon` |
-| Nord | `nord-light` (light), `nord-dark` |
-| Dracula | `dracula` |
-| Tokyo Night | `tokyonight-night`, `tokyonight-storm`, `tokyonight-moon` |
+All options are optional with sensible defaults.
 
 ---
 
-## Navigation
-
-Nav links in `site.config.ts` render in the header and mobile drawer:
-
-```ts
-nav: [
-  { label: "Home",   href: "/" },
-  { label: "Blog",   href: "/blog" },
-  // Add any page here:
-  { label: "Uses",   href: "/uses" },
-  { label: "Notes",  href: "/notes" },
-],
-```
-
-The **Portfolio** and **Profile** links are appended automatically when `portfolio.enabled: true`. To show Portfolio but remove Profile, remove it from `Header.astro` directly.
-
----
-
-## SVG heading font
-
-Heading paths are generated from `Inter 600` (woff). To change the font size, edit `scripts/gen-svg-paths.ts`:
-
-```ts
-const FONT_SIZES = {
-  hero: 72,     // index.astro hero heading
-  page: 44,     // blog, portfolio, profile, tag headings
-}
-```
-
-After any change to font sizes, re-run:
+## SVG heading generation
 
 ```bash
-pnpm --filter web gen:paths
+pnpm gen:svg
 ```
 
-To swap to a different font entirely, install the `@fontsource/<font-name>` package (non-variable, for the woff files), update `findFontFile()` in the script to point to the new woff path, and re-run.
+Options:
+
+- `--config <path>` — Path to config file (default: `./nocturne.config.ts`)
+- `--content <dir>` — Base content directory (default: `./src/content`)
+- `--out <path>` — Output file (default: `./src/generated/svg-paths.json`)
+
+Run this after changing your site title or adding new content tags.

@@ -1,5 +1,19 @@
 ---
-const title = "Not Found"
+import Layout from "../layouts/Layout.astro"
+import { Button } from "../ui/components/button.tsx"
 ---
 
-<main><h1>{title}</h1></main>
+<Layout title="Not Found" description="Page not found.">
+  <section class="mx-auto flex max-w-3xl flex-col items-center px-4 py-24 text-center">
+    <h1 class="text-6xl font-semibold tracking-tight">404</h1>
+    <p class="mt-4 text-lg text-muted-foreground">This page does not exist.</p>
+    <div class="mt-8 flex gap-3">
+      <Button asChild>
+        <a href="/">Go home</a>
+      </Button>
+      <Button variant="outline" asChild>
+        <a href="/blog">Read articles</a>
+      </Button>
+    </div>
+  </section>
+</Layout>

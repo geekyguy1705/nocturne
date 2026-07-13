@@ -1,0 +1,48 @@
+---
+import { Badge } from "../ui/components/badge.tsx"
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from "../ui/components/card.tsx"
+import { formatDate, slugify } from "../lib/utils.ts"
+import type { CollectionEntry } from "astro:content"
+
+interface Props {
+  article: CollectionEntry<"articles">
+}
+
+const { article } = Astro.props
+const { title, description, publishDate, tags, readingTime } = article.data
+
+const MAX_TAGS = 3
+const visibleTags = tags.slice(0, MAX_TAGS)
+const extraCount = tags.length - MAX_TAGS
+---
+
+<Card className="flex h-full flex-col">
+  <CardHeader className="pb-3">
+    <CardTitle className="text-base leading-snug">
+      <a href={`/blog/${article.id}`} class="hover:text-primary transition-colors">
+        {title}
+      </a>
+    </CardTitle>
+    <CardDescription className="flex items-center gap-1.5 text-xs">
+      <span>{formatDate(publishDate)}</span>
+      {readingTime && <><span aria-hidden="true">·</span><span>{readingTime} read</span></>}
+    </CardDescription>
+  </CardHeader>
+  <CardContent className="flex-1 pb-3">
+    <p class="text-sm text-muted-foreground line-clamp-3">{description}</p>
+  </CardContent>
+  <CardFooter className="flex flex-nowrap items-center gap-1.5 overflow-hidden">
+    {visibleTags.map((tag: string) => (
+      <a href={`/blog/tag/${slugify(tag)}`} class="inline-flex shrink-0">
+        <Badge variant="secondary" className="hover:bg-highlight/10 hover:text-highlight transition-colors cursor-pointer text-xs">
+          {tag}
+        </Badge>
+      </a>
+    ))}
+    {extraCount > 0 && (
+      <Badge variant="outline" className="shrink-0 text-xs text-muted-foreground">
+        +{extraCount}
+      </Badge>
+    )}
+  </CardFooter>
+</Card>

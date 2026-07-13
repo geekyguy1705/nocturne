@@ -1,5 +1,65 @@
 ---
-const title = "Portfolio Tags"
+import Layout from "../../../layouts/Layout.astro"
+import { getCollection } from "astro:content"
+import { slugify } from "../../../lib/utils.ts"
+import { siteConfig } from "virtual:nocturne/config"
+
+if (!siteConfig.portfolio.enabled || siteConfig.portfolio.mode === "single-page") {
+  return Astro.redirect("/portfolio")
+}
+
+const projects = await getCollection("projects")
+const counts = new Map<string, number>()
+for (const project of projects) {
+  for (const tag of project.data.tags) {
+    counts.set(tag, (counts.get(tag) || 0) + 1)
+  }
+}
+const tags = Array.from(counts.entries()).sort((a, b) => b[1] - a[1])
+const chartVars = ["--chart-1", "--chart-2", "--chart-3", "--chart-4", "--chart-5"]
 ---
 
-<main><h1>{title}</h1></main>
+<Layout title="Tags" description="Browse projects by tag.">
+  <section class="mx-auto max-w-4xl px-4 py-12">
+    <h1 class="text-3xl font-semibold tracking-tight">Tags</h1>
+    <p class="mt-2 text-muted-foreground">Browse projects by technology or topic.</p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      {
+        tags.map(([tag, count], i) => {
+          const cv = chartVars[i % chartVars.length]
+          return (
+            <a
+              href={`/portfolio/tag/${slugify(tag)}`}
+              class="tag-pill-link"
+              style={`--tag-color: var(${cv});`}
+            >
+              {tag}
+              <span class="ml-1 text-xs opacity-60">({count})</span>
+            </a>
+          )
+        })
+      }
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .tag-pill-link {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3em 0.75em;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid color-mix(in srgb, var(--tag-color) 40%, transparent);
+    color: var(--tag-color);
+    background-color: color-mix(in srgb, var(--tag-color) 8%, transparent);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .tag-pill-link:hover {
+    background-color: color-mix(in srgb, var(--tag-color) 20%, transparent);
+    border-color: var(--tag-color);
+    color: var(--tag-color) !important;
+  }
+</style>

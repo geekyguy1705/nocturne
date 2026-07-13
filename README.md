@@ -22,8 +22,8 @@ A dark-first personal site template built with Astro, Tailwind v4, and Anime.js 
 ## Structure
 
 ```
-apps/web          Astro site — pages, content, animations, build scripts
-packages/ui       Shared shadcn/ui components + global CSS theme files
+packages/nocturne   Reusable Astro integration package — components, layouts, routes, styles, scripts
+apps/demo           Demo app consuming the package — fixture content about Nocturne
 ```
 
 **Stack:** pnpm workspaces · Turborepo · Astro 6 · React 19 · Tailwind CSS v4 · TypeScript 6
@@ -32,28 +32,30 @@ packages/ui       Shared shadcn/ui components + global CSS theme files
 
 ```bash
 pnpm install
-pnpm dev
+pnpm --filter demo dev
 ```
 
 ## Scripts
 
 | Command | What it does |
 |---|---|
-| `pnpm dev` | Start Astro dev server |
-| `pnpm build` | `gen:paths` → `astro build` → Pagefind index |
-| `pnpm --filter web gen:paths` | Regenerate SVG glyph paths (run after changing `title`) |
-| `pnpm --filter web sync:themes` | Regenerate theme CSS from palette source packages |
-| `pnpm typecheck` | `astro check` across the workspace |
+| `pnpm --filter demo dev` | Start demo app dev server |
+| `pnpm --filter demo build` | Build demo app |
+| `pnpm --filter @geekyguy1705/nocturne gen:svg` | Regenerate SVG glyph paths |
+| `pnpm --filter @geekyguy1705/nocturne sync:themes` | Regenerate theme CSS from palette source packages |
+| `pnpm --filter @geekyguy1705/nocturne typecheck` | TypeScript checks |
+| `pnpm --filter @geekyguy1705/nocturne test` | Run package tests |
 | `pnpm format` | Prettier across all `.ts`, `.tsx`, `.astro` files |
 
 ## Package reference
 
-### Runtime (`apps/web`)
+### Package (`packages/nocturne`)
 
 | Package | Purpose |
 |---|---|
 | `astro` | Static site framework — content collections, routing, SSG |
 | `@astrojs/react` | React island support for interactive components |
+| `@astrojs/markdown-remark` | Markdown processor (unified pipeline) |
 | `animejs ^4.5.0` | SVG `createDrawable` stroke animations, spring physics |
 | `@fontsource-variable/inter` | Self-hosted Inter variable font |
 | `radix-ui` | Headless accessible UI primitives |
@@ -63,20 +65,18 @@ pnpm dev
 | `zod` | Content collection schema validation |
 | `tw-animate-css` | Tailwind v4 animation utilities |
 
-### Dev / build (`apps/web`)
+### Dev / build (`packages/nocturne`)
 
 | Package | Purpose |
 |---|---|
 | `opentype.js` | Parses woff font, extracts per-glyph SVG `<path>` data at build time |
 | `@fontsource/inter` | Static woff files for `gen-svg-paths.ts` (opentype.js can't read woff2) |
-| `pagefind` + `@pagefind/default-ui` | Full-text search index |
 | `rehype-pretty-code` + `shiki` | Syntax highlighting in Markdown |
 | `rehype-katex` + `remark-math` + `katex` | LaTeX math rendering |
 | `mermaid` | Diagram rendering |
 | `rehype-slug` + `rehype-autolink-headings` | Heading anchor links |
 | `remark-gfm` | GitHub Flavoured Markdown |
 | `@catppuccin/palette` + `@rose-pine/palette` | Palette source data for `sync-themes.ts` |
-| `overlayscrollbars` | Custom scrollbar in theme picker |
 
 ### Monorepo root
 

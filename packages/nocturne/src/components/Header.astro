@@ -1,0 +1,89 @@
+---
+import { siteConfig } from "virtual:nocturne/config"
+import { ThemePicker } from "../components/ThemePicker.tsx"
+import { GlobalSearch } from "../components/GlobalSearch.tsx"
+import { MobileNav } from "../components/MobileNav.tsx"
+import { getCollection } from "astro:content"
+import type { SearchItem } from "../components/GlobalSearch.tsx"
+
+const navLinks = [...siteConfig.nav]
+if (siteConfig.portfolio.enabled) {
+  navLinks.push({ label: "Portfolio", href: "/portfolio" })
+}
+navLinks.push({ label: "Profile", href: "/profile" })
+
+const articles = (await getCollection("articles")).filter((a) => !a.data.draft)
+const projects = siteConfig.portfolio.enabled ? await getCollection("projects") : []
+
+const searchItems: SearchItem[] = [
+  ...articles.map((a) => ({
+    title: a.data.title,
+    description: a.data.description,
+    href: `/blog/${a.id}`,
+    type: "article" as const,
+    tags: a.data.tags,
+  })),
+  ...projects.map((p) => ({
+    title: p.data.title,
+    description: p.data.description,
+    href: `/portfolio/${p.id}`,
+    type: "project" as const,
+    tags: p.data.tags,
+  })),
+]
+---
+
+<header class="sticky top-0 z-50 border-b border-border/60 backdrop-blur-sm" style="background-color: color-mix(in oklch, var(--accent-1) 8%, var(--background) 85%)">
+  <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+    <a
+      href="/"
+      class="text-base font-bold tracking-[0.08em] uppercase"
+      style="background: linear-gradient(90deg, var(--accent-1) 0%, var(--highlight) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;"
+    >
+      {siteConfig.title}
+    </a>
+    <nav class="hidden items-center gap-1 md:flex">
+      {
+        navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-nav-link
+            class="nav-link rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <GlobalSearch client:load items={searchItems} />
+      <ThemePicker client:load />
+    </nav>
+    <MobileNav client:load navLinks={navLinks} searchItems={searchItems} />
+  </div>
+</header>
+
+<style>
+  .nav-link:hover {
+    color: var(--foreground) !important;
+  }
+  .nav-link[aria-current="page"] {
+    color: var(--highlight);
+    background-color: color-mix(in srgb, var(--highlight) 10%, transparent);
+  }
+  .nav-link[aria-current="page"]:hover {
+    color: var(--highlight) !important;
+  }
+</style>
+
+<script>
+  function markActiveLink() {
+    const links = document.querySelectorAll<HTMLAnchorElement>("a[data-nav-link]")
+    const current = window.location.pathname
+    for (const link of links) {
+      const href = new URL(link.href).pathname
+      const isActive = href === "/" ? current === "/" : current.startsWith(href)
+      link.setAttribute("aria-current", isActive ? "page" : "false")
+    }
+  }
+  markActiveLink()
+  document.addEventListener("astro:page-load", markActiveLink)
+</script>

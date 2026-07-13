@@ -8,7 +8,7 @@ dist/
 node_modules/
 
 # generated build artifacts
-apps/web/src/generated/svg-paths.json
+apps/*/src/generated/svg-paths.json
 
 # logs
 *.log
