@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "prebuild": "node --experimental-strip-types ./node_modules/@geekyguy1705/nocturne/src/scripts/gen-svg-paths.ts --config ./nocturne.config.ts --content ./src/content --out ./src/generated/svg-paths.json",
+    "postbuild": "pagefind --site dist",
+    "gen:svg": "node --experimental-strip-types ./node_modules/@geekyguy1705/nocturne/src/scripts/gen-svg-paths.ts --config ./nocturne.config.ts --content ./src/content --out ./src/generated/svg-paths.json",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -15,5 +18,8 @@
     "astro": "^6",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2"
   }
 }

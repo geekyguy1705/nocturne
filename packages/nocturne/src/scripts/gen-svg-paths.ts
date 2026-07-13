@@ -15,7 +15,7 @@
 import opentype from "opentype.js"
 import * as fs from "node:fs"
 import * as path from "node:path"
-import { fileURLToPath } from "node:url"
+import { fileURLToPath, pathToFileURL } from "node:url"
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -103,7 +103,7 @@ function collectProfileName(profileDir: string): string {
   return "Profile"
 }
 
-const configModule = await import(path.resolve(opts.configPath))
+const configModule = await import(pathToFileURL(path.resolve(opts.configPath)).href)
 const siteConfig = configModule.default ?? configModule.siteConfig
 
 const articlesDir = path.join(opts.contentDir, "articles")

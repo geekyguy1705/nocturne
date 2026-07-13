@@ -2,7 +2,7 @@ import { flavors } from "@catppuccin/palette"
 import { writeFileSync } from "node:fs"
 import { resolve } from "node:path"
 
-const STYLES_DIR = resolve(import.meta.dirname, "../../..", "packages/ui/src/styles")
+const STYLES_DIR = resolve(import.meta.dirname, "../styles")
 
 function write(filename: string, lines: string[]) {
   const outPath = resolve(STYLES_DIR, filename)

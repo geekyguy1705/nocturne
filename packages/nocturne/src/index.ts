@@ -1,4 +1,4 @@
-export { default as nocturne } from "./integration/index.js"
-export type { NocturneIntegrationOptions } from "./integration/index.js"
-export * from "./config/index.js"
-export * from "./content/index.js"
+export { default as nocturne } from "./integration/index.ts"
+export type { NocturneIntegrationOptions } from "./integration/index.ts"
+export * from "./config/index.ts"
+export * from "./content/index.ts"

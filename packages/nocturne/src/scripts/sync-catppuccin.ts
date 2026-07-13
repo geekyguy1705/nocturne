@@ -57,6 +57,6 @@ for (const name of flavorNames) {
   lines.push('}')
 }
 
-const outPath = resolve(import.meta.dirname, "../../..", "packages/ui/src/styles/catppuccin.css")
+const outPath = resolve(import.meta.dirname, "../styles/catppuccin.css")
 writeFileSync(outPath, lines.join("\n") + "\n")
 console.log(`Wrote ${outPath}`)

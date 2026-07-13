@@ -7,40 +7,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 All commands should be run from the repo root using `pnpm` and `turbo`:
 
 ```bash
-pnpm dev          # Start dev server (Astro on localhost:4321)
-pnpm build        # Build all packages and apps
-pnpm lint         # Run ESLint across all workspaces
+pnpm --filter demo dev          # Start demo dev server (Astro on localhost:4321)
+pnpm --filter @geekyguy1705/nocturne build  # Build package
+pnpm --filter @geekyguy1705/nocturne typecheck  # Run TypeScript checks
+pnpm --filter @geekyguy1705/nocturne test      # Run package tests
 pnpm format       # Run Prettier across all workspaces
-pnpm typecheck    # Run TypeScript checks across all workspaces
 ```
-
-App-specific commands (run from `apps/web/`):
-
-```bash
-pnpm preview      # Preview production build locally
-pnpm sync:themes  # Sync all theme CSS variables from upstream
-```
-
-There are no tests configured.
 
 ## Architecture
 
 This is a **pnpm + Turbo monorepo** with two workspaces:
 
-- **`apps/web/`** — The Astro 6 site (main app, static output to `dist/`)
-- **`packages/ui/`** — Shared React component library (shadcn/ui components + 7 themes)
+- **`packages/nocturne/`** — Reusable Astro integration package (components, layouts, routes, styles, scripts, config, content schemas)
+- **`apps/demo/`** — Demo app consuming the package (fixture content about Nocturne)
 
 ### Data flow
 
-Content is stored as Markdown in `apps/web/src/content/` across three Astro Content Collections: `articles`, `projects`, and `profile`. Schemas are defined in `apps/web/src/content.config.ts`. Pages in `apps/web/src/pages/` query these collections and render them using layouts in `apps/web/src/layouts/`.
+Content is stored as Markdown in `apps/demo/src/content/` across three Astro Content Collections: `articles`, `projects`, and `profile`. Schemas are defined using factory functions from `@geekyguy1705/nocturne/content`. Routes are injected by the integration from `packages/nocturne/src/routes/`.
 
 ### UI component system
 
-`packages/ui` exports shadcn/ui components built on Radix primitives and Tailwind CSS 4. The web app imports from this package via the `@workspace/ui/*` path alias. Both workspaces have their own `components.json` (shadcn config). When adding new shadcn components, run `pnpm dlx shadcn@latest add <component>` from within the relevant workspace directory.
+`packages/nocturne/src/ui/` exports shadcn/ui components built on Radix primitives and Tailwind CSS 4. Package routes and components import from `../ui/components/*` via relative paths. The package's `components.json` is at `packages/nocturne/components.json`.
 
 ### Themes
 
-Seven color themes are defined in `packages/ui/src/styles/` (Catppuccin, Dracula, Gruvbox, Nord, Rose Pine, Tokyo Night, and a default). Theme CSS variables are synced from upstream sources via `sync:themes` scripts. The `ThemePicker` and `ThemeToggle` components in `apps/web/src/components/` handle runtime theme switching.
+Seven color themes are defined in `packages/nocturne/src/styles/` (Catppuccin, Dracula, Gruvbox, Nord, Rose Pine, Tokyo Night, and a default). Theme CSS variables are synced from upstream sources via `sync:themes` scripts. The `ThemePicker` and `ThemeToggle` components in `packages/nocturne/src/components/` handle runtime theme switching.
 
 ### Markdown pipeline
 
@@ -48,7 +39,9 @@ Articles are processed with:
 - **remark**: GFM, math (KaTeX), Mermaid diagrams
 - **rehype**: syntax highlighting (Shiki, GitHub themes), KaTeX rendering, autolink headings
 
-Custom remark plugins live in `apps/web/src/lib/`.
+The markdown processor is configured via `unified()` from `@astrojs/markdown-remark` in the integration's `updateConfig` call.
+
+Custom remark plugins live in `packages/nocturne/src/lib/`.
 
 ### Search
 

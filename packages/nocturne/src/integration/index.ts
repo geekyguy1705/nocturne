@@ -6,6 +6,7 @@ import rehypePrettyCode from "rehype-pretty-code"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
+import { unified } from "@astrojs/markdown-remark"
 import { remarkMermaid } from "../lib/remark-mermaid.ts"
 import type { NocturneConfig } from "../config/index.ts"
 
@@ -104,24 +105,26 @@ export default function nocturne(options: NocturneIntegrationOptions = {}): Astr
           },
           markdown: {
             syntaxHighlight: false,
-            remarkRehype: { allowDangerousHtml: true },
-            remarkPlugins: [remarkGfm, remarkMath, remarkMermaid],
-            rehypePlugins: [
-              rehypeSlug,
-              [
-                rehypeAutolinkHeadings,
-                { behavior: "append", properties: { className: ["anchor-link"] } },
+            processor: unified({
+              remarkRehype: { allowDangerousHtml: true },
+              remarkPlugins: [remarkGfm, remarkMath, remarkMermaid],
+              rehypePlugins: [
+                rehypeSlug,
+                [
+                  rehypeAutolinkHeadings,
+                  { behavior: "append", properties: { className: ["anchor-link"] } },
+                ],
+                [rehypeKatex, { strict: false }],
+                [
+                  rehypePrettyCode,
+                  {
+                    theme: { dark: "github-dark", light: "github-light" },
+                    themeCssSelector: (theme: string) => `[data-theme="${theme}"]`,
+                    keepBackground: true,
+                  },
+                ],
               ],
-              [rehypeKatex, { strict: false }],
-              [
-                rehypePrettyCode,
-                {
-                  theme: { dark: "github-dark", light: "github-light" },
-                  themeCssSelector: (theme: string) => `[data-theme="${theme}"]`,
-                  keepBackground: true,
-                },
-              ],
-            ],
+            }),
           },
         })
       },

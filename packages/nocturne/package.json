@@ -141,7 +141,9 @@
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
     "test": "node --experimental-strip-types --test ./src/**/*.test.ts",
-    "gen:svg": "node --experimental-strip-types ./src/scripts/gen-svg-paths.ts"
+    "gen:svg": "node --experimental-strip-types ./src/scripts/gen-svg-paths.ts",
+    "sync:themes": "node --experimental-strip-types ./src/scripts/sync-themes.ts",
+    "sync:catppuccin": "node --experimental-strip-types ./src/scripts/sync-catppuccin.ts"
   },
   "peerDependencies": {
     "@astrojs/react": ">=5.0.0 <6.0.0",
@@ -151,6 +153,7 @@
     "zod": ">=3.0.0 || >=4.0.0"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.2.0",
     "@fontsource-variable/inter": "^5.2.8",
     "animejs": "^4.5.0",
     "class-variance-authority": "^0.7.1",
@@ -174,6 +177,9 @@
   },
   "devDependencies": {
     "@astrojs/react": "^5.0.5",
+    "@catppuccin/palette": "^1.7.1",
+    "@fontsource/inter": "^5.2.8",
+    "@rose-pine/palette": "^3.0.0",
     "@tailwindcss/vite": "^4",
     "@types/mdast": "^4.0.4",
     "@types/react": "^19",
