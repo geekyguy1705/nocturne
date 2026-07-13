@@ -28,6 +28,14 @@ nocturne.workspace.json Workspace-level config (default app, dev settings)
 scripts/dev.mjs         Dev server launcher — reads workspace config
 ```
 
+**Branches:**
+
+| Branch | Purpose |
+|---|---|
+| `nocturne-2.0/core` | Package development with demo app |
+| `nocturne-2.0/demo` | Starter kit reference — complete demo with 6 articles, 3 projects, profile |
+| `nocturne-2.0/site-abhishek` | Personal site example |
+
 **Stack:** pnpm workspaces · Turborepo · Astro 6 · React 19 · Tailwind CSS v4 · TypeScript 6
 
 ## Quick start

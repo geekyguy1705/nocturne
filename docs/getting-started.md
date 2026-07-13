@@ -20,6 +20,8 @@ cd nocturne
 pnpm install
 ```
 
+> **Starter kit reference**: The `nocturne-2.0/demo` branch contains a complete demo site with 6 articles, 3 projects, and a profile — a great reference for seeing how content is structured. Check it out with `git checkout nocturne-2.0/demo`.
+
 ---
 
 ## Step 2: Create your app
