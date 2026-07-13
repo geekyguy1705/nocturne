@@ -1,6 +1,6 @@
 # Theming Guide
 
-Nocturne ships with 15 themes across 6 colour schemes. All themes are pure CSS — no JavaScript at the token level, no runtime colour computation.
+Nocturne 2.0.0 ships with 15 themes across 6 colour schemes. All themes are pure CSS — no JavaScript at the token level, no runtime colour computation.
 
 ---
 
@@ -177,3 +177,16 @@ Tailwind utilities generated from `--color-*` tokens:
 ```
 
 The `color-mix()` approach is used throughout Nocturne for hover states, focus rings, and the header background tint.
+
+---
+
+## Syncing themes from upstream
+
+Theme CSS variables are synced from upstream palette packages via scripts:
+
+```bash
+pnpm --filter @geekyguy1705/nocturne sync:themes
+pnpm --filter @geekyguy1705/nocturne sync:catppuccin
+```
+
+These read from `@catppuccin/palette` and `@rose-pine/palette` and regenerate the theme CSS files.

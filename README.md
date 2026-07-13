@@ -22,8 +22,10 @@ A dark-first personal site template built with Astro, Tailwind v4, and Anime.js 
 ## Structure
 
 ```
-packages/nocturne   Reusable Astro integration package — components, layouts, routes, styles, scripts
-apps/demo           Demo app consuming the package — fixture content about Nocturne
+packages/nocturne       Reusable Astro integration package — components, layouts, routes, styles, scripts
+apps/                   Consumer apps (demo, portfolio-abhishek, or your own)
+nocturne.workspace.json Workspace-level config (default app, dev settings)
+scripts/dev.mjs         Dev server launcher — reads workspace config
 ```
 
 **Stack:** pnpm workspaces · Turborepo · Astro 6 · React 19 · Tailwind CSS v4 · TypeScript 6
@@ -32,15 +34,18 @@ apps/demo           Demo app consuming the package — fixture content about Noc
 
 ```bash
 pnpm install
-pnpm --filter demo dev
+pnpm dev
 ```
+
+`pnpm dev` reads `nocturne.workspace.json` to determine which app to run. See the [Getting Started guide](docs/getting-started.md) to create your own site.
 
 ## Scripts
 
 | Command | What it does |
 |---|---|
-| `pnpm --filter demo dev` | Start demo app dev server |
-| `pnpm --filter demo build` | Build demo app |
+| `pnpm dev` | Start dev server (reads `nocturne.workspace.json` for `defaultApp`) |
+| `pnpm --filter my-site dev` | Start a specific app's dev server |
+| `pnpm --filter my-site build` | Build a specific app |
 | `pnpm --filter @geekyguy1705/nocturne gen:svg` | Regenerate SVG glyph paths |
 | `pnpm --filter @geekyguy1705/nocturne sync:themes` | Regenerate theme CSS from palette source packages |
 | `pnpm --filter @geekyguy1705/nocturne typecheck` | TypeScript checks |
@@ -87,5 +92,9 @@ pnpm --filter demo dev
 
 ## Documentation
 
-- **[Configuration guide](docs/configuration.md)** — all configurable options with copy-paste examples
-- **[Theming guide](docs/theming.md)** — CSS token system, adding new themes, `sync:themes` workflow
+- **[Getting Started](docs/getting-started.md)** — complete step-by-step guide to create your own Nocturne site
+- **[Configuration reference](docs/2.0.0/configuration.md)** — every `nocturne.config.ts` field with types and defaults
+- **[Workspace reference](docs/2.0.0/workspace.md)** — `nocturne.workspace.json` options for dev and build settings
+- **[Content guide](docs/2.0.0/content.md)** — content collections, frontmatter fields, and schema extensions
+- **[Theming guide](docs/2.0.0/theming.md)** — CSS token system, adding new themes, `sync:themes` workflow
+- **[Deployment guide](docs/2.0.0/deployment.md)** — Vercel, Netlify, Cloudflare Pages, and self-hosting
