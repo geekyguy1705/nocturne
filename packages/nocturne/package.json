@@ -31,6 +31,96 @@
       "import": "./src/content/index.ts"
     },
     "./styles.css": "./src/styles.css",
+    "./styles/globals.css": "./src/styles/globals.css",
+    "./styles/markdown.css": "./src/styles/markdown.css",
+    "./ui/lib/utils": {
+      "types": "./src/ui/lib/utils.ts",
+      "import": "./src/ui/lib/utils.ts"
+    },
+    "./ui/components/badge": {
+      "types": "./src/ui/components/badge.tsx",
+      "import": "./src/ui/components/badge.tsx"
+    },
+    "./ui/components/button": {
+      "types": "./src/ui/components/button.tsx",
+      "import": "./src/ui/components/button.tsx"
+    },
+    "./ui/components/card": {
+      "types": "./src/ui/components/card.tsx",
+      "import": "./src/ui/components/card.tsx"
+    },
+    "./ui/components/input": {
+      "types": "./src/ui/components/input.tsx",
+      "import": "./src/ui/components/input.tsx"
+    },
+    "./ui/components/textarea": {
+      "types": "./src/ui/components/textarea.tsx",
+      "import": "./src/ui/components/textarea.tsx"
+    },
+    "./ui/components/separator": {
+      "types": "./src/ui/components/separator.tsx",
+      "import": "./src/ui/components/separator.tsx"
+    },
+    "./ui/components/avatar": {
+      "types": "./src/ui/components/avatar.tsx",
+      "import": "./src/ui/components/avatar.tsx"
+    },
+    "./ui/components/popover": {
+      "types": "./src/ui/components/popover.tsx",
+      "import": "./src/ui/components/popover.tsx"
+    },
+    "./ui/components/dialog": {
+      "types": "./src/ui/components/dialog.tsx",
+      "import": "./src/ui/components/dialog.tsx"
+    },
+    "./ui/components/input-group": {
+      "types": "./src/ui/components/input-group.tsx",
+      "import": "./src/ui/components/input-group.tsx"
+    },
+    "./ui/components/command": {
+      "types": "./src/ui/components/command.tsx",
+      "import": "./src/ui/components/command.tsx"
+    },
+    "./lib/utils": {
+      "types": "./src/lib/utils.ts",
+      "import": "./src/lib/utils.ts"
+    },
+    "./lib/animations": {
+      "types": "./src/lib/animations.ts",
+      "import": "./src/lib/animations.ts"
+    },
+    "./lib/remark-mermaid": {
+      "types": "./src/lib/remark-mermaid.ts",
+      "import": "./src/lib/remark-mermaid.ts"
+    },
+    "./components/Header": "./src/components/Header.astro",
+    "./components/Footer": "./src/components/Footer.astro",
+    "./components/ArticleCard": "./src/components/ArticleCard.astro",
+    "./components/ProjectCard": "./src/components/ProjectCard.astro",
+    "./components/LicenseCard": "./src/components/LicenseCard.astro",
+    "./components/MDXContent": "./src/components/MDXContent.astro",
+    "./components/FloatingPanel": {
+      "types": "./src/components/FloatingPanel.tsx",
+      "import": "./src/components/FloatingPanel.tsx"
+    },
+    "./components/GlobalSearch": {
+      "types": "./src/components/GlobalSearch.tsx",
+      "import": "./src/components/GlobalSearch.tsx"
+    },
+    "./components/ThemePicker": {
+      "types": "./src/components/ThemePicker.tsx",
+      "import": "./src/components/ThemePicker.tsx"
+    },
+    "./components/ThemeToggle": {
+      "types": "./src/components/ThemeToggle.tsx",
+      "import": "./src/components/ThemeToggle.tsx"
+    },
+    "./components/MobileNav": {
+      "types": "./src/components/MobileNav.tsx",
+      "import": "./src/components/MobileNav.tsx"
+    },
+    "./layouts/Layout": "./src/layouts/Layout.astro",
+    "./layouts/main": "./src/layouts/main.astro",
     "./routes/home": "./src/routes/index.astro",
     "./routes/not-found": "./src/routes/404.astro",
     "./routes/blog": "./src/routes/blog/index.astro",
@@ -54,14 +144,32 @@
     "zod": ">=3.0.0 || >=4.0.0"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
+    "animejs": "^4.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
+    "lucide-react": "^1.21.0",
+    "radix-ui": "^1.6.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "shadcn": "^4.11.0",
+    "tailwind-merge": "^3.6.0",
+    "tw-animate-css": "^1.4.0",
+    "unist-util-visit": "^5.1.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4",
+    "@types/mdast": "^4.0.4",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "astro": "^6",
+    "katex": "^0.17.0",
+    "mermaid": "^11.16.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "tailwindcss": "^4",
     "typescript": "~6"
   },
   "engines": {

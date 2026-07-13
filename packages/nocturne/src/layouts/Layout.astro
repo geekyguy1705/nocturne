@@ -1,0 +1,162 @@
+---
+import { siteConfig } from "virtual:nocturne/config"
+import "../styles/globals.css"
+import "../styles/markdown.css"
+import "katex/dist/katex.min.css"
+import Header from "../components/Header.astro"
+import Footer from "../components/Footer.astro"
+import { ClientRouter } from "astro:transitions"
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = siteConfig.description } = Astro.props
+const pageTitle = `${title} | ${siteConfig.title}`
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <ClientRouter />
+    <script is:inline>
+      const LIGHT_THEMES = new Set(["latte", "gruvbox-light", "rosepine-dawn", "nord-light"])
+      const ALL_THEMES = [
+        "latte", "frappe", "macchiato", "mocha",
+        "gruvbox-dark", "gruvbox-light",
+        "rosepine-main", "rosepine-moon", "rosepine-dawn",
+        "nord-dark", "nord-light",
+        "dracula",
+        "tokyonight-night", "tokyonight-storm", "tokyonight-moon",
+      ]
+      const applyTheme = (doc = document) => {
+        const stored = localStorage.getItem("theme")
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+        const theme = ALL_THEMES.includes(stored) ? stored : (prefersDark ? "tokyonight-night" : "latte")
+        const isDark = !LIGHT_THEMES.has(theme)
+        const root = doc.documentElement
+        root.setAttribute("data-site-theme", theme)
+        root.setAttribute("data-theme", isDark ? "github-dark" : "github-light")
+        if (isDark) {
+          root.classList.add("dark")
+        } else {
+          root.classList.remove("dark")
+        }
+      }
+      applyTheme()
+      document.addEventListener("astro:before-swap", (e) => applyTheme(e.newDocument))
+    </script>
+  </head>
+  <body class="flex min-h-svh flex-col bg-background text-foreground">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import { initAnimations } from "../lib/animations.ts"
+      import mermaid from "mermaid"
+
+      mermaid.initialize({ startOnLoad: false, theme: "default" })
+
+      const init = () => {
+        initAnimations()
+        mermaid.run({ querySelector: ".mermaid" })
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init)
+      } else {
+        init()
+      }
+      document.addEventListener("astro:page-load", init)
+    </script>
+    <script is:inline>
+      (function () {
+        const indicator = document.createElement("div")
+        indicator.id = "scroll-indicator"
+        const thumb = document.createElement("div")
+        thumb.id = "scroll-indicator-thumb"
+        indicator.appendChild(thumb)
+        document.body.appendChild(indicator)
+
+        let hideTimer = null
+        let thumbHeight = 0
+        let dragging = false
+        let dragStartY = 0
+        let dragStartScrollTop = 0
+
+        function getScrollable() {
+          return document.documentElement.scrollHeight - document.documentElement.clientHeight
+        }
+
+        function updateThumb() {
+          const scrollTop = document.documentElement.scrollTop
+          const scrollHeight = document.documentElement.scrollHeight
+          const clientHeight = document.documentElement.clientHeight
+          const scrollable = scrollHeight - clientHeight
+          if (scrollable <= 0) return
+
+          const ratio = clientHeight / scrollHeight
+          thumbHeight = Math.max(ratio * clientHeight, 40)
+          const thumbTop = (scrollTop / scrollable) * (clientHeight - thumbHeight)
+
+          thumb.style.height = thumbHeight + "px"
+          thumb.style.top = thumbTop + "px"
+        }
+
+        function showIndicator() {
+          updateThumb()
+          indicator.classList.add("visible")
+          clearTimeout(hideTimer)
+          hideTimer = setTimeout(function () {
+            if (!dragging) indicator.classList.remove("visible")
+          }, 1000)
+        }
+
+        document.addEventListener("scroll", showIndicator, { passive: true })
+
+        thumb.addEventListener("mousedown", function (e) {
+          e.preventDefault()
+          dragging = true
+          dragStartY = e.clientY
+          dragStartScrollTop = document.documentElement.scrollTop
+          thumb.classList.add("dragging")
+          indicator.classList.add("visible")
+          clearTimeout(hideTimer)
+        })
+
+        document.addEventListener("mousemove", function (e) {
+          if (!dragging) return
+          const clientHeight = document.documentElement.clientHeight
+          const scrollable = getScrollable()
+          const trackHeight = clientHeight - thumbHeight
+          const delta = e.clientY - dragStartY
+          const scrollDelta = (delta / trackHeight) * scrollable
+          document.documentElement.scrollTop = dragStartScrollTop + scrollDelta
+        })
+
+        document.addEventListener("mouseup", function () {
+          if (!dragging) return
+          dragging = false
+          thumb.classList.remove("dragging")
+          hideTimer = setTimeout(function () {
+            indicator.classList.remove("visible")
+          }, 1000)
+        })
+
+        document.addEventListener("astro:page-load", function () {
+          dragging = false
+          thumb.classList.remove("dragging")
+          indicator.classList.remove("visible")
+          clearTimeout(hideTimer)
+        })
+      })()
+    </script>
+  </body>
+</html>
